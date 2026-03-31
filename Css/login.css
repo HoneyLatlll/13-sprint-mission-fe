@@ -51,7 +51,7 @@
   gap: 20px 0;
 }
 
-.login-box-main p {
+.login-box-main label {
   color: var(--Secondary-800);
 
   /* pretendard/2lg-18px-bold */

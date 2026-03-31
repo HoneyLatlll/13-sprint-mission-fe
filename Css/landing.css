@@ -11,10 +11,6 @@ body {
   margin: 0 auto;
 }
 
-.main {
-  flex: 1;
-}
-
 .header {
   background-color: #fff;
   border-bottom: 1px solid #e5e7eb;
