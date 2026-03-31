@@ -34,4 +34,4 @@
 
 ## 🔗 배포 링크
 
-[판다마켓 바로가기](Netlify 배포 후 URL 입력)
+[판다마켓 바로가기](https://candid-cheesecake-e777a3.netlify.app/)
