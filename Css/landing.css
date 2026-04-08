@@ -1,0 +1,250 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.header {
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1920px;
+  padding: 0 200px;
+  margin: 0 auto;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-name {
+  display: flex;
+  height: 51px;
+  padding: 5.017px 0 5.848px 0;
+  gap: 8.592px;
+  color: #3692ff;
+  font-family: "ROKAF Sans";
+  font-size: 25.633px;
+  font-weight: 700;
+  line-height: normal;
+  text-wrap: nowrap;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40.135px;
+}
+
+.login-button {
+  display: flex;
+  cursor: pointer;
+  width: 128px;
+  height: 48px;
+  padding: 12px 23px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border-style: none;
+  background: #3692ff;
+  color: #f3f4f6;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.login-a,
+.items-a,
+.privacy-a,
+.FAQ-a {
+  text-decoration: none;
+}
+
+.common-section {
+  position: relative;
+  height: 540px;
+  background: #cfe5ff;
+}
+
+.common-group {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 7px;
+}
+
+.common-group-box {
+  display: flex;
+  padding-bottom: 60px;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: flex-start; default값*/
+  gap: 32px;
+}
+
+.common-view-text {
+  color: #374151;
+  width: 295px;
+  text-wrap: wrap;
+  font-family: Pretendard;
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 140%;
+}
+
+.header-view-button {
+  display: flex;
+  height: 56px;
+  padding: 16px 124px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 40px;
+  border: none;
+  background: #3692ff;
+  cursor: pointer;
+}
+
+.header-view-button-p {
+  color: #f9fafb;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-weight: 600;
+  text-wrap: nowrap;
+}
+
+.common-group-img {
+  height: 340px;
+}
+
+.common-group-img.tall {
+  height: 397px;
+}
+
+.main-section {
+  display: flex;
+  padding: 138px 344px;
+  justify-content: center;
+  background: #fff;
+}
+
+.item-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 64px;
+}
+
+.item-img {
+  width: 588px;
+  height: 444px;
+  border-radius: 12px;
+  background: #f3f4f6;
+  object-fit: cover;
+  object-position: center;
+}
+
+.item-present {
+  display: flex;
+  flex-direction: column;
+  /* default값*/
+  /* align-items: flex-start; */
+  gap: 12px;
+}
+
+.item-text-title {
+  color: #3692ff;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.item-text-middle {
+  color: #374151;
+  font-family: Pretendard;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 140%;
+  letter-spacing: 0.8px;
+}
+
+.item-text-bottom {
+  color: #374151;
+  width: 290px;
+  text-wrap: wrap;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.common-section.footer {
+  margin-top: 138px;
+}
+
+.footer-section {
+  height: 160px;
+  padding: 32px 200px;
+  display: flex;
+  background: #111827;
+}
+
+.footer-span-box {
+  display: flex;
+  justify-content: space-between;
+  /* 텍스트의 밑줄 기준선에 맞춰 아이콘도 정렬 */
+  align-items: baseline;
+  width: 100%;
+}
+
+.footer-first-text {
+  color: #9ca3af;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footer-center-box {
+  display: flex;
+  gap: 30px;
+}
+
+.privacy-a,
+.FAQ-a {
+  /* 자꾸 색이 바뀌어서 화나서 important 붙임 */
+  color: #e5e7eb !important;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footer-icon-box {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-icon-box img {
+  width: 20px;
+  height: 20px;
+}

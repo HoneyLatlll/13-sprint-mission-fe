@@ -1,0 +1,181 @@
+:root {
+  --brand-blue: #3692ff;
+  --Secondary-800: #1f2937;
+  --Cool-Gray-100: #f3f4f6;
+  --Primary-100: #3692ff;
+  --Primary-200: #1967d6;
+  --Primary-300: #1251aa;
+}
+
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* dvh 단위는 현재 보여지는 뷰포트 높이를 동적으로 가져옴 */
+  min-height: 100dvh;
+}
+
+/* 회원가입페이지만 마진설정 */
+.signup {
+  margin: 40px auto;
+}
+
+.login-box {
+  display: flex;
+  width: 640px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-logo {
+  display: flex;
+  gap: 20px;
+  color: var(--brand-blue);
+  font-family: "ROKAF Sans";
+  font-size: 66.344px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 60px;
+}
+
+.login-logo-img {
+  display: flex;
+  align-items: center;
+}
+
+.login-box-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0;
+}
+
+.login-box-main label {
+  color: var(--Secondary-800);
+
+  /* pretendard/2lg-18px-bold */
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px; /* 144.444% */
+}
+
+.login-input {
+  display: flex;
+  width: 640px;
+  height: 56px;
+  padding: 16px 24px;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 12px;
+  background: var(--Cool-Gray-100);
+  margin-bottom: 24px;
+}
+
+/* .login-input과 :focus사이에 공백이 있으면 자식요소의 :focus선택이기 떄문에
+공백있으면 안됨 */
+.login-input:focus {
+  outline: none;
+  border: 1px solid var(--brand-blue);
+}
+
+.login-button {
+  display: flex;
+  cursor: pointer;
+  width: 640px;
+  height: 56px;
+  padding: 16px 124px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 40px;
+  background: var(--Primary-100);
+  color: var(--Cool-Gray-100);
+  text-align: center;
+
+  /* pretendard/xl-20px-semibold */
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px; /* 160% */
+}
+
+.easy-login {
+  display: flex;
+  width: 640px;
+  height: 74px;
+  padding: 16px 23px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: #e6f2ff;
+}
+
+.easy-login p {
+  color: var(--Secondary-800);
+
+  /* pretendard/lg-16px-medium */
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px; /* 162.5% */
+}
+
+.easy-login-logobox {
+  display: flex;
+  gap: 16px;
+}
+
+.login-bottom-textbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.login-bottom-textbox p {
+  color: var(--Secondary-800);
+
+  /* pretendard/md-14px-medium */
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 171.429% */
+}
+
+.login-bottom-textbox a {
+  color: var(--Primary-100);
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+}
+
+.login-input-password {
+  position: relative;
+}
+
+.login-input-password button {
+  position: absolute;
+  cursor: pointer;
+  /* 배경색 투명으로 하는법 */
+  background-color: transparent;
+  border: 0;
+  top: 15px;
+  right: 0;
+}
