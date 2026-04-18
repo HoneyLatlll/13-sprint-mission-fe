@@ -1,4 +1,4 @@
-const articleURL = "https://panda-market-api-crud.vercel.app/articles";
+const ARTICLE_URL = "https://panda-market-api-crud.vercel.app/articles"; //파스칼표기법으로 하면 안댐 이런건
 
 function getArticleList(params) {
   // try {
@@ -20,7 +20,7 @@ function getArticleList(params) {
   //잘못된 try catch 문임 catch부분 실행 되지도 않음 ㅇㅇ
 
   const searchParams = new URLSearchParams(params);
-  const url = `${articleURL}?${searchParams}`;
+  const url = `${ARTICLE_URL}?${searchParams}`;
 
   fetch(url)
     .then((response) => {
@@ -40,7 +40,7 @@ function getArticleList(params) {
 //에러확인 page에 말도 안되는거 입력
 
 function getArticle(id) {
-  fetch(`${articleURL}/${id}`)
+  fetch(`${ARTICLE_URL}/${id}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP 에러! 상태:${response.status}`);
@@ -65,7 +65,7 @@ function createArticle() {
     image: "https://example.com/...",
   };
 
-  fetch(`${articleURL}/`, {
+  fetch(`${ARTICLE_URL}/`, {
     //이미 있는 ID 넣어서 에러 확인
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -93,7 +93,7 @@ function patchArticle(id) {
     content: "업데이트 내용",
   };
 
-  fetch(`${articleURL}/${id}`, {
+  fetch(`${ARTICLE_URL}/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updates),
@@ -115,7 +115,7 @@ function patchArticle(id) {
 //-100같은 말도 안되는 숫자 넣어서 에러 확인
 
 function deleteArticle(id) {
-  fetch(`${articleURL}/${id}`, {
+  fetch(`${ARTICLE_URL}/${id}`, {
     method: "DELETE",
   })
     .then((response) => {
