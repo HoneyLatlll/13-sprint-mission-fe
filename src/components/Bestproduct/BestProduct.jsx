@@ -12,6 +12,7 @@ export default function BestProduct() {
         const response = await fetch(
           "https://panda-market-api.vercel.app/products?pageSize=4&orderBy=favorite",
         );
+        if (!response.ok) throw new Error("HTTP 에러", response.status);
         const data = await response.json();
         setProducts(data.list); //.배열을 받아야하는데 data만 쓰니까 객체형태라서 안되었던거 같음 그래서 data.list를 써야한다
         console.log(data);

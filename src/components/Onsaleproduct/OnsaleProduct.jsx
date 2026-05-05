@@ -11,11 +11,12 @@ export default function OnsaleProduct() {
   const [currentpage, setCurrentpage] = useState(1);
   const [keyword, setKeyword] = useState("");
   const pagebtnsize = 5;
-  const totalpage = Math.ceil(totalproduct / 10); //전체페이지는 전체상품수에서 10을 나눈 것 왜냐면 10개 요소를 grid에 배치해놨으니까
+  const totalpage = Math.ceil(totalproduct / 10); //전체페이지는 전체상품수에서 10을 나눈 것 왜냐면 10개 요소를 pageSize를 통해 받아와서 grid로 배치해놨으니까
   const startPage =
     Math.floor((currentpage - 1) / pagebtnsize) * pagebtnsize + 1;
+  //페이지 버튼의 시작페이지 번호
   const endPage = Math.min(startPage + pagebtnsize - 1, totalpage);
-
+  //페이지 버튼에서 끝 페이지 번호 min으로 total페이지를 넘기지 않도록 제한
   useEffect(() => {
     async function GetSortProduct() {
       try {
@@ -103,6 +104,7 @@ export default function OnsaleProduct() {
         >
           ◀
         </button>
+        {/*실제 있는 페이지 만큼만 버튼 생성*/}
         {Array.from(
           { length: endPage - startPage + 1 },
           (_, i) => startPage + i,
