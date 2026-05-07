@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./RegisterForm.css";
 import { Link } from "react-router-dom";
 
@@ -18,6 +18,23 @@ export default function RegisterForm() {
       tags: tags,
     });
   console.log(formdata);
+
+  useEffect(() => {
+    async function postProduct() {
+      try {
+        const res = await fetch("https://sprint5-api.onrender.com/products", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...formdata }),
+        });
+        if (!res.ok) throw new Error("생성 실패");
+        return res.json();
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    postProduct();
+  }, [formdata]);
 
   return (
     <form className="register-form">

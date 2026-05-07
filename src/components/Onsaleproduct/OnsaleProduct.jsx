@@ -23,7 +23,7 @@ export default function OnsaleProduct() {
   //   async function GetSortProduct() {
   //     try {
   //       const response = await fetch(
-  //         `https://panda-market-api.vercel.app/products?page=${currentpage}&pageSize=10&orderBy=${sort}&keyword=${keyword}`,
+  //         `https://panda-market-api.vercel.app/products?page=${currentpage}&pageSize=10&sort=${sort}&keyword=${keyword}`,
   //       );
   //       if (!response.ok) throw new Error("HTTP 에러 타입 : ", response.status);
   //       const data = await response.json();
@@ -40,19 +40,20 @@ export default function OnsaleProduct() {
     async function GetAllProduct() {
       try {
         const response = await fetch(
-          "https://panda-market-api.vercel.app/products",
+          "https://sprint5-api.onrender.com/products",
         );
         if (!response.ok) throw new Error("HTTP 에러 타입 : ", response.status);
         const data = await response.json();
-        setProducts(data.list);
-        setTotalproduct(data.totalCount);
-        console.log(data.totalCount);
+        setProducts(data);
+        // setTotalproduct(data.totalCount);
+        // console.log(data.totalCount);
       } catch (err) {
         console.log("에러 ", err);
       }
     }
     GetAllProduct();
   }, []);
+  console.log(products);
 
   return (
     <section className="onsale-section">
