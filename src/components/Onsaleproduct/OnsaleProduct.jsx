@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./OnsaleProduct.css";
 import favoriteIcon from "../../assets/ic_heart.svg";
 import defaultImg from "../../assets/default_img.jpg";
+import { Link } from "react-router-dom";
 
 export default function OnsaleProduct() {
   const [sortproducts, setSortProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [isdropdown, setIsdropdown] = useState(false);
   const [sort, setSort] = useState("recent");
   const [totalproduct, setTotalproduct] = useState(0);
@@ -17,22 +19,22 @@ export default function OnsaleProduct() {
   //페이지 버튼의 시작페이지 번호
   const endPage = Math.min(startPage + pagebtnsize - 1, totalpage);
   //페이지 버튼에서 끝 페이지 번호 min으로 total페이지를 넘기지 않도록 제한
-  useEffect(() => {
-    async function GetSortProduct() {
-      try {
-        const response = await fetch(
-          `https://panda-market-api.vercel.app/products?page=${currentpage}&pageSize=10&orderBy=${sort}&keyword=${keyword}`,
-        );
-        if (!response.ok) throw new Error("HTTP 에러 타입 : ", response.status);
-        const data = await response.json();
-        setSortProducts(data.list);
-      } catch (err) {
-        console.log("에러 ", err);
-      } //제발 await 붙이는거 잊지말자
-      // console.log(data);
-    }
-    GetSortProduct();
-  }, [sort, currentpage, keyword]);
+  // useEffect(() => {
+  //   async function GetSortProduct() {
+  //     try {
+  //       const response = await fetch(
+  //         `https://panda-market-api.vercel.app/products?page=${currentpage}&pageSize=10&orderBy=${sort}&keyword=${keyword}`,
+  //       );
+  //       if (!response.ok) throw new Error("HTTP 에러 타입 : ", response.status);
+  //       const data = await response.json();
+  //       setSortProducts(data.list);
+  //     } catch (err) {
+  //       console.log("에러 ", err);
+  //     } //제발 await 붙이는거 잊지말자
+  //     // console.log(data);
+  //   }
+  //   GetSortProduct();
+  // }, [sort, currentpage, keyword]);
 
   useEffect(() => {
     async function GetAllProduct() {
@@ -42,6 +44,7 @@ export default function OnsaleProduct() {
         );
         if (!response.ok) throw new Error("HTTP 에러 타입 : ", response.status);
         const data = await response.json();
+        setProducts(data.list);
         setTotalproduct(data.totalCount);
         console.log(data.totalCount);
       } catch (err) {
@@ -62,7 +65,9 @@ export default function OnsaleProduct() {
             onChange={(e) => setKeyword(e.target.value)}
             placeholder="🍳검색할 상품을 입력해주세요"
           ></input>
-          <button className="toolbar-btn">상품 등록하기</button>
+          <Link to="/registration" className="link-register">
+            <button className="toolbar-btn">상품 등록하기</button>
+          </Link>
           <div className="dropdown-box">
             <button className="toolbar-dropdown">
               {sort === "recent" ? <p>최신순</p> : <p>좋아요순</p>}
@@ -78,7 +83,7 @@ export default function OnsaleProduct() {
         </div>
       </div>
       <div className="onsaleproducts">
-        {sortproducts.map((sortproduct) => (
+        {products.map((sortproduct) => (
           <div className="onsale-card" key={sortproduct.id}>
             <img
               src={sortproduct.images || defaultImg} //이미지 없을 때 처리 디폴트 이미지로 근데 이래도 안되는게 있네 이미지가 링크는 올렸는데 없는 링크 일 때는 어케해야하는건지 모르겠음
