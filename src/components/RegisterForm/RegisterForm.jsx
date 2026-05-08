@@ -17,7 +17,7 @@ export default function RegisterForm() {
       price: price,
       tags: tags,
     });
-  console.log(formdata);
+  // console.log(formdata);
 
   useEffect(() => {
     async function postProduct() {
@@ -35,6 +35,8 @@ export default function RegisterForm() {
     }
     postProduct();
   }, [formdata]);
+
+  console.log(tags);
 
   return (
     <form className="register-form">
@@ -76,10 +78,11 @@ export default function RegisterForm() {
         <div>
           <p>태그</p>
           <input
-            placeholder="태그를 입력해주세요"
+            placeholder="태그 입력 후 <Enter>"
             onChange={(e) => setTaginput(e.target.value)}
             onKeyDown={(e) => {
               if (e.key !== "Enter") return;
+              e.preventDefault();
               if (!taginput.trim() || taginput.length > 5) return;
 
               setTags((prev) => [...prev, taginput]);
@@ -87,9 +90,17 @@ export default function RegisterForm() {
             }}
             value={taginput}
           />
-          <p>등록된 태그</p>
+        </div>
+        <div className="tags-container">
           {tags.map((tag, index) => (
-            <p key={index}>{tag}</p>
+            <div key={index} className="tag-box">
+              <p>#{tag}</p>
+              <button
+                onClick={() => setTags(tags.filter((tag, i) => i !== index))}
+              >
+                ✖
+              </button>
+            </div>
           ))}
         </div>
       </div>
