@@ -23,8 +23,8 @@
   gap: 10px;
   border-radius: 8px;
   border: none;
-  background: var(--Cool-Gray-400, #9ca3af);
   color: var(--Cool-Gray-100, #f3f4f6);
+  background: var(--Primary-100, #3692ff);
 
   /* pretendard/lg-16px-semibold */
   font-family: Pretendard;
@@ -33,6 +33,11 @@
   font-weight: 600;
   line-height: 26px; /* 162.5% */
   cursor: pointer;
+}
+
+.register-title-box button:disabled {
+  background: var(--Cool-Gray-400, #9ca3af);
+  cursor: not-allowed;
 }
 
 .register-title-box p {
@@ -113,5 +118,4 @@
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
   cursor: pointer;
-  text-align: center;
 }

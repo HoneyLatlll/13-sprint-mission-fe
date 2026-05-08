@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./RegisterForm.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import useValidation from "../../hooks/useValidation";
 
 export default function RegisterForm() {
   const [formdata, setFormdata] = useState({});
@@ -10,6 +11,8 @@ export default function RegisterForm() {
   const [tags, setTags] = useState([]);
   const [taginput, setTaginput] = useState("");
 
+  const navigate = useNavigate();
+
   const handleCreateProduct = () =>
     setFormdata({
       name: name,
@@ -18,6 +21,8 @@ export default function RegisterForm() {
       tags: tags,
     });
   // console.log(formdata);
+  // console.log(useValidation(name, description, price, taginput));
+  const errors = useValidation(name, description, price, taginput);
 
   useEffect(() => {
     async function postProduct() {
@@ -28,25 +33,29 @@ export default function RegisterForm() {
           body: JSON.stringify({ ...formdata }),
         });
         if (!res.ok) throw new Error("생성 실패");
-        return res.json();
+        const data = await res.json();
+        navigate(`/products/${data._id}`);
       } catch (error) {
         console.error(error.message);
       }
     }
     postProduct();
-  }, [formdata]);
+  }, [formdata, navigate]);
 
-  console.log(tags);
+  // console.log(tags);
+  console.log(errors);
 
   return (
-    <form className="register-form">
+    <div className="register-form">
       <div className="register-title-box">
         <p>상품 등록하기</p>
-        <Link to="/">
-          <button type="button" onClick={() => handleCreateProduct()}>
-            등록
-          </button>
-        </Link>
+        <button
+          type="button"
+          onClick={() => handleCreateProduct()}
+          disabled={Object.keys(errors).length > 0}
+        >
+          등록
+        </button>
       </div>
       <div className="product-input-box">
         <div>
@@ -55,7 +64,11 @@ export default function RegisterForm() {
             onChange={(e) => setName(e.target.value)}
             placeholder="상품명을 입력해주세요"
             value={name}
+            style={errors.name && { border: "solid 2px red" }}
           />
+          {errors.name && (
+            <p style={{ color: "red", fontSize: 12 }}>{errors.name}</p>
+          )}
         </div>
         <div>
           <p>상품 소개</p>
@@ -64,7 +77,11 @@ export default function RegisterForm() {
             className="description-textarea"
             onChange={(e) => setDescription(e.target.value)}
             value={description}
+            style={errors.description && { border: "solid 2px red" }}
           />
+          {errors.description && (
+            <p style={{ color: "red", fontSize: 12 }}>{errors.description}</p>
+          )}
         </div>
         <div>
           <p>판매가격</p>
@@ -73,7 +90,11 @@ export default function RegisterForm() {
             onChange={(e) => setPrice(e.target.value)}
             value={price}
             type="number"
+            style={errors.price && { border: "solid 2px red" }}
           />
+          {errors.price && (
+            <p style={{ color: "red", fontSize: 12 }}>{errors.price}</p>
+          )}
         </div>
         <div>
           <p>태그</p>
@@ -82,14 +103,17 @@ export default function RegisterForm() {
             onChange={(e) => setTaginput(e.target.value)}
             onKeyDown={(e) => {
               if (e.key !== "Enter") return;
-              e.preventDefault();
               if (!taginput.trim() || taginput.length > 5) return;
 
               setTags((prev) => [...prev, taginput]);
               setTaginput("");
             }}
             value={taginput}
+            style={errors.taginput && { border: "solid 2px red" }}
           />
+          {errors.taginput && (
+            <p style={{ color: "red", fontSize: 12 }}>{errors.taginput}</p>
+          )}
         </div>
         <div className="tags-container">
           {tags.map((tag, index) => (
@@ -104,6 +128,6 @@ export default function RegisterForm() {
           ))}
         </div>
       </div>
-    </form>
+    </div>
   );
 }
