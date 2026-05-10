@@ -1,49 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./RegisterForm.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import useValidation from "../../hooks/useValidation";
 
 export default function RegisterForm() {
-  const [formdata, setFormdata] = useState({});
+  // const [formdata, setFormdata] = useState({});
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [tags, setTags] = useState([]);
   const [taginput, setTaginput] = useState("");
+  const formdata = { name, description, price, tags };
 
   const navigate = useNavigate();
-
-  const handleCreateProduct = () =>
-    setFormdata({
-      name: name,
-      description: description,
-      price: price,
-      tags: tags,
-    });
-  // console.log(formdata);
-  // console.log(useValidation(name, description, price, taginput));
   const errors = useValidation(name, description, price, taginput);
 
-  useEffect(() => {
-    async function postProduct() {
-      try {
-        const res = await fetch("https://sprint5-api.onrender.com/products", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...formdata }),
-        });
-        if (!res.ok) throw new Error("생성 실패");
-        const data = await res.json();
-        navigate(`/products/${data._id}`);
-      } catch (error) {
-        console.error(error.message);
-      }
+  async function postProduct() {
+    try {
+      const res = await fetch("https://sprint5-api.onrender.com/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formdata }),
+      });
+      if (!res.ok) throw new Error("생성 실패");
+      const data = await res.json();
+      navigate(`/products/${data._id}`);
+    } catch (error) {
+      console.error(error.message);
     }
-    postProduct();
-  }, [formdata, navigate]);
+  }
 
-  // console.log(tags);
-  console.log(errors);
+  const handleCreateProduct = () => {
+    postProduct();
+  };
 
   return (
     <div className="register-form">
