@@ -24,7 +24,6 @@ export default function Header() {
             </p>
           </Link>
           <div className="flex gap-[40px]">
-            {/* TODO: p태그 -> Link로 바꿔야함 */}
             <Link
               href="/boards"
               className={`${path === "/boards" ? "text-[#3692FF]" : "text-[#4B5563]"} font-bold`}
