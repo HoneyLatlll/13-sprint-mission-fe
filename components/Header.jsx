@@ -18,25 +18,29 @@ export default function Header() {
               alt="헤더 판다 로고"
               width={40}
               height={40}
+              className="hidden md:block"
             />
-            <p className="text-[#3692FF] font-bold text-[25.633px] mr-[32px]">
+            <p className="text-[#3692FF] font-bold text-[20.202px] mr-[32px] whitespace-nowrap md:text-[25.633px] text-center">
               판다마켓
             </p>
           </Link>
-          <div className="flex gap-[40px]">
+          <div className="flex gap-[8px] md:gap-[40px]">
             <Link
               href="/boards"
-              className={`${path === "/boards" ? "text-[#3692FF]" : "text-[#4B5563]"} font-bold`}
+              className={`${path === "/boards" ? "text-[#3692FF]" : "text-[#4B5563]"} font-bold whitespace-nowrap text-[16px] md:text-[18px]`}
             >
               자유게시판
             </Link>
-            <Link href="/" className="font-bold text-[#4B5563]">
+            <Link
+              href="/"
+              className="font-bold text-[#4B5563] whitespace-nowrap text-[16px] md:text-[18px]"
+            >
               중고마켓
             </Link>
           </div>
         </div>
         <div>
-          <button className="cursor-pointer text-white bg-[#3692FF] px-[23px] py-[12px] rounded-[8px]">
+          <button className="cursor-pointer text-white bg-[#3692FF] px-[23px] py-[12px] rounded-[8px] whitespace-nowrap">
             로그인
           </button>
         </div>
