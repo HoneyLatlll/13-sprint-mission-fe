@@ -11,6 +11,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@theme {
+  /* --breakpoint-sm: 375px; */
+  --breakpoint-md: 744px;
+  --breakpoint-lg: 1200px;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
