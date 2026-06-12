@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useState } from "react";
 
 const options = [
-  { label: "최신순", value: "recent" },
-  { label: "오래된순", value: "latest" },
+  { label: "최신순", value: "latest" },
+  { label: "오래된순", value: "oldest" },
   { label: "좋아요순", value: "favoritest" },
 ];
 
@@ -18,7 +18,7 @@ export default function DropDown({ onSelect }) {
       onClick={() => setIsOpen((prev) => !prev)}
     >
       <span className="flex items-center justify-between w-full">
-        <p>{sortOptions}</p>
+        <p className="whitespace-nowrap">{sortOptions}</p>
         <Image
           src="/ic_arrow_down.svg"
           alt="드롭다운 버튼"
@@ -27,7 +27,7 @@ export default function DropDown({ onSelect }) {
         />
       </span>
       {isOpen && (
-        <div className="flex flex-col rounded-[8px] absolute top-[45px] left-0 gap-[2px] border-solid border border-cool-gray-200 rounded-[12px] w-full">
+        <div className="flex flex-col rounded-[8px] absolute top-[45px] left-0 gap-[2px] border-solid border border-cool-gray-200 rounded-[12px] w-full bg-[#FFF]">
           {options.map((option, index) => (
             <span
               key={index}

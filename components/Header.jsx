@@ -9,7 +9,7 @@ export default function Header() {
   const path = usePathname();
 
   return (
-    <header className="w-full h-[70] sticky top-0 z-10 border-[#DFDFDF] border-b flex items-center">
+    <header className="w-full h-[70] sticky top-0 z-10 border-[#DFDFDF] border-b flex items-center bg-[#FFF]">
       <div className="w-full flex justify-between items-center px-[16px] md:px-[24px] lg:px-[200px]">
         <div className="flex items-center">
           <Link className="flex gap-[8.592px]" href="/">
