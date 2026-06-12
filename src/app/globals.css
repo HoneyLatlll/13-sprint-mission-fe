@@ -2,8 +2,6 @@
 
 :root {
   --background: #ffffff;
-  --cool-gray-900: #111827;
-  --cool-gray-50: #f9fafb;
 }
 
 @theme inline {
@@ -11,14 +9,19 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-cool-gray-900: var(--color-gray-900);
-  --color-cool-gray-50: var(--cool-gray-50);
 }
 
 @theme {
   /* --breakpoint-sm: 375px; */
   --breakpoint-md: 744px;
   --breakpoint-lg: 1200px;
+  --color-secondary-800: #1f2937;
+  --color-cool-gray-900: #111827;
+  --color-cool-gray-50: #f9fafb;
+  --color-brand-blue: #3692ff;
+  --color-secondary-600: #4b5563;
+  --color-secondary-400: #9ca3af;
+  --color-secondary-800: #1f2937;
 }
 
 body {
