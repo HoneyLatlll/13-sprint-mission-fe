@@ -1,5 +1,10 @@
 import React from "react";
+import ArticleForm from "../../_components/ArticleForm";
 
 export default function page() {
-  return <div>게시글 수정 페이지</div>;
+  return (
+    <div>
+      <ArticleForm />
+    </div>
+  );
 }
