@@ -18,7 +18,7 @@ export default async function BestArticles() {
         {BestArticles.data.map((article, index) => (
           <Link key={article.id} href={`/boards/${article.id}`}>
             <li
-              className={`flex flex-col bg-cool-gray-50 rounded-[8px] px-[24px] gap-[20px] ${(index === 1 && "hidden md:flex") || (index === 2 && "hidden lg:flex")}`}
+              className={`flex flex-col bg-cool-gray-50 rounded-[8px] px-[24px] gap-[20px] pb-[16px] ${(index === 1 && "hidden md:flex") || (index === 2 && "hidden lg:flex")}`}
             >
               <span className="bg-brand-blue w-[102px] flex justify-center rounded-b-[16px] text-[#FFF] font-bold text-[16px] px-[24px] py-[2px] whitespace-nowrap">
                 🏆 Best

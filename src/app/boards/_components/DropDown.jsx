@@ -28,10 +28,10 @@ export default function DropDown({ onSelect }) {
       </span>
       {isOpen && (
         <div className="flex flex-col rounded-[8px] absolute top-[45px] left-0 gap-[2px] border-solid border border-cool-gray-200 rounded-[12px] w-full bg-[#FFF]">
-          {options.map((option, index) => (
+          {options.map((option) => (
             <span
-              key={index}
-              className={`w-full border-b border-cool-gray-200 py-[5px] ${index === 2 && "border-b-0"}`}
+              key={option.value}
+              className={`w-full border-b border-cool-gray-200 py-[5px] ${option.value === "favoritest" && "border-b-0"}`}
               onClick={() => {
                 setSortOptions(option.label);
                 onSelect(option.value);
