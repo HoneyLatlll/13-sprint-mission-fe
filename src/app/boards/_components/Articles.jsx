@@ -22,7 +22,7 @@ export default function Articles() {
   }, [sortValue, keyword]);
   console.log(sortValue);
   return (
-    <section className="max-w-[1200px] mx-auto flex flex-col gap-[24px] mt-[40px]">
+    <section className="flex flex-col gap-[24px] mt-[40px]">
       <div className="flex items-center justify-between">
         <h1 className="text-cool-gray-900 font-bold text-[20px]">게시글</h1>
         <button className="cursor-pointer text-white bg-[#3692FF] px-[23px] py-[12px] rounded-[8px] whitespace-nowrap">

@@ -9,7 +9,8 @@ export default async function BestArticles() {
   const BestArticles = await res.json();
 
   return (
-    <section className="max-w-[1200px] mx-auto flex flex-col gap-[24px] mt-[24px]">
+    // TODO: section태그에 aria-label 속성을 나중에 추가하는게 좋을듯 스크린리더가 읽어주는 라벨임 articles 컴포넌트 쪽 section 태그도 마찬가지
+    <section className="flex flex-col gap-[24px] mt-[24px]">
       <h1 className="text-cool-gray-900 font-bold text-[20px]">
         베스트 게시글
       </h1>

@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="flex gap-[12px] text-[#9CA3AF] whitespace-nowrap">
           <Link href="https://facebook.com" target="_blank">
             <Image
-              src="ic_facebook.svg"
+              src="/ic_facebook.svg"
               alt="페이스북 아이콘"
               width={18}
               height={18}
@@ -22,7 +22,7 @@ export default function Footer() {
           </Link>
           <Link href="https://twitter.com" target="_blank">
             <Image
-              src="ic_twitter.svg"
+              src="/ic_twitter.svg"
               alt="트위터 아이콘"
               width={18}
               height={18}
@@ -30,7 +30,7 @@ export default function Footer() {
           </Link>
           <Link href="https://youtube.com" target="_blank">
             <Image
-              src="ic_youtube.svg"
+              src="/ic_youtube.svg"
               alt="유튜브 아이콘"
               width={18}
               height={18}
@@ -38,7 +38,7 @@ export default function Footer() {
           </Link>
           <Link href="https://instagram.com" target="_blank">
             <Image
-              src="ic_instagram.svg"
+              src="/ic_instagram.svg"
               alt="인스타그램 아이콘"
               width={18}
               height={18}

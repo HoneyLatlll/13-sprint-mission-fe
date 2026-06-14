@@ -1,5 +1,12 @@
 import React from "react";
+import ArticleDetail from "./_components/ArticleDetail";
+import ArticleComment from "./_components/ArticleComment";
 
 export default function page() {
-  return <div>게시글 상세페이지</div>;
+  return (
+    <div>
+      <ArticleDetail />
+      <ArticleComment />
+    </div>
+  );
 }
