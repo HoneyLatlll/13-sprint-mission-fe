@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="w-full flex h-[160px] bg-[#111827] mx-auto px-[16px] py-[32px] md:px-[24px] lg:px-[200px]">
+    <footer className="w-full flex h-[160px] bg-[#111827] mx-auto mt-[24px] px-[16px] py-[32px] md:px-[24px] lg:px-[200px]">
       <div className="w-full flex justify-between">
         <div className="text-[#9CA3AF] whitespace-nowrap">@codeit - 2024</div>
         <div className="flex text-[#9CA3AF] gap-[30px] whitespace-nowrap">

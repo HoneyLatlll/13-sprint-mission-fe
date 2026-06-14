@@ -27,7 +27,7 @@ export default function Header() {
           <div className="flex gap-[8px] md:gap-[40px]">
             <Link
               href="/boards"
-              className={`${path === "/boards" ? "text-[#3692FF]" : "text-[#4B5563]"} font-bold whitespace-nowrap text-[16px] md:text-[18px]`}
+              className={`${path.startsWith("/boards") ? "text-[#3692FF]" : "text-[#4B5563]"} font-bold whitespace-nowrap text-[16px] md:text-[18px]`}
             >
               자유게시판
             </Link>
