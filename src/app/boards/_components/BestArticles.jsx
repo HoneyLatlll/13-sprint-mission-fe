@@ -25,7 +25,7 @@ export default async function BestArticles() {
               </span>
               <div className="flex h-[72px] gap-[8px] justify-between">
                 <p className="text-secondary-800 text-[20px] font-[600]">
-                  {article.content}
+                  {article.title}
                 </p>
                 <Image
                   src="/default_img.jpg"

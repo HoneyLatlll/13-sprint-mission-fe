@@ -1,18 +1,32 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import KebabMenu from "./KebabMenu";
 import { useParams, useRouter } from "next/navigation";
 
 export default function ArticleDetail() {
   const router = useRouter();
   const { articleId } = useParams();
+  const [article, setArticle] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function getDetailArticle(articleId) {
+      const res = await fetch(`http://localhost:3001/articles/${articleId}`);
+      const articleData = await res.json();
+      setIsLoading(false);
+      setArticle(articleData.data);
+    }
+    getDetailArticle(articleId);
+  }, []);
   return (
     <section className="w-full mt-[32px] flex flex-col gap-[16px]">
       {/* TODO: 인라인 요소 묶을 때는 span써도 되지만 flex justify-content같은 블록 스타일을 쓰고 있으면 div태그가 맞다 근데 다른곳에서도 이미 div안쓰고 span써서 다 바꾸기 귀찮은데 아.. */}
       <span className="flex justify-between">
-        <p className="text-secondary-800 font-bold text-[20px]">게시글 제목</p>
+        <p className="text-secondary-800 font-bold text-[20px]">
+          {article.title}
+        </p>
         <KebabMenu
           onSelect={(value) => {
             if (value === "update") router.push(`/boards/${articleId}/update`);
@@ -27,9 +41,11 @@ export default function ArticleDetail() {
           width={40}
           height={40}
         />
-        <p className="text-secondary-600 text-[14px] font-[500]">사용자이름</p>
+        <p className="text-secondary-600 text-[14px] font-[500]">
+          {article.userName}
+        </p>
         <p className="text-secondary-400 text-[14px] font-[400] mr-[30px]">
-          생성 날짜
+          {!isLoading && article.createdAt.slice(0, 10)}
         </p>
         <Image
           src="/ic_separator.svg"
@@ -40,12 +56,14 @@ export default function ArticleDetail() {
         />
         <span className="border border-cool-gray-200 rounded-[35px] px-[12px] py-[4px]">
           <p className="text-[16px] text-secondary-500 font-[500]">
-            ❤ 좋아요개수
+            ❤ {article.favorite}
           </p>
         </span>
       </span>
       <span>
-        <p className="font-[400] text-secondary-800 text-[18px]">게시글 내용</p>
+        <p className="font-[400] text-secondary-800 text-[18px]">
+          {article.content}
+        </p>
       </span>
     </section>
   );

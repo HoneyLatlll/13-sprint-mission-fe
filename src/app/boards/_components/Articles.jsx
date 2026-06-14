@@ -46,7 +46,7 @@ export default function Articles() {
           <Link key={article.id} href={`/boards/${article.id}`}>
             <li className="flex flex-col h-[138px] bg-[#FCFCFC] gap-[16px] border-b border-cool-gray-200">
               <span className="flex gap-[8px] justify-between">
-                <p className="text-[20px] font-[600]">{article.content}</p>
+                <p className="text-[20px] font-[600]">{article.title}</p>
                 <Image
                   src="/default_img.jpg"
                   alt="디폴트 이미지"
