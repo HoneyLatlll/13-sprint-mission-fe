@@ -40,6 +40,7 @@ export default function Header() {
           </div>
         </div>
         <div>
+          {/* TODO: 버튼 많이 쓰이니까 컴포넌트로 분리하는 것도 괜찮아보임 */}
           <button className="cursor-pointer text-white bg-[#3692FF] px-[23px] py-[12px] rounded-[8px] whitespace-nowrap">
             로그인
           </button>

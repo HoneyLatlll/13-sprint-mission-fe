@@ -1,12 +1,12 @@
 import React from "react";
-import BestPosts from "./_components/BestPosts";
-import Posts from "./_components/Posts";
+import BestArticles from "./_components/BestArticles";
+import Articles from "./_components/Articles";
 
 export default function page() {
   return (
     <div>
-      <BestPosts />
-      <Posts />
+      <BestArticles />
+      <Articles />
     </div>
   );
 }
