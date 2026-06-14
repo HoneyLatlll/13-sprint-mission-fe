@@ -22,12 +22,25 @@ export default function ArticleDetail() {
           width={40}
           height={40}
         />
-        <p>사용자이름</p>
-        <p>생성 날짜</p>
-        <Image src="/ic_separator.svg" alt="" width={1} height={34} />
+        <p className="text-secondary-600 text-[14px] font-[500]">사용자이름</p>
+        <p className="text-secondary-400 text-[14px] font-[400] mr-[30px]">
+          생성 날짜
+        </p>
+        <Image
+          src="/ic_separator.svg"
+          alt=""
+          width={1}
+          height={34}
+          className="mr-[30px]"
+        />
         <span className="border border-cool-gray-200 rounded-[35px] px-[12px] py-[4px]">
-          <p>🤍 좋아요개수</p>
+          <p className="text-[16px] text-secondary-500 font-[500]">
+            ❤ 좋아요개수
+          </p>
         </span>
+      </span>
+      <span>
+        <p className="font-[400] text-secondary-800 text-[18px]">게시글 내용</p>
       </span>
     </section>
   );
