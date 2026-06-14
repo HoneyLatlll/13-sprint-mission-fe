@@ -4,6 +4,7 @@ import Link from "next/link";
 import DropDown from "./DropDown";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 
 export default function Articles() {
   const [sortValue, setSortValue] = useState("latest");
@@ -21,7 +22,6 @@ export default function Articles() {
     }
     getArticles();
   }, [sortValue, keyword]);
-  console.log(sortValue);
   return (
     <section className="flex flex-col gap-[24px] mt-[40px]">
       <div className="flex items-center justify-between">
