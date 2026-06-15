@@ -36,7 +36,10 @@ export default function CommentForm({ onSuccess }) {
         onChange={(e) => setComment(e.target.value)}
       />
       <div className="flex justify-end">
-        <button className="px-[23px] py-[12px] bg-brand-blue text-[16px] font-[600] text-cool-gray-100 border-none rounded-[8px] cursor-pointer">
+        <button
+          disabled={!comment}
+          className={`px-[23px] py-[12px] text-[16px] font-[600] text-cool-gray-100 border-none rounded-[8px] bg-brand-blue disabled:bg-secondary-400 ${comment ? "cursor-pointer" : "cursor-not-allowed"}`}
+        >
           등록
         </button>
       </div>
