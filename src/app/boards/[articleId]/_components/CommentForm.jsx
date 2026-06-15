@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function CommentForm({ onSuccess }) {
   const { articleId } = useParams();

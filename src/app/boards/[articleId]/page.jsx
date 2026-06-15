@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import ArticleDetail from "./_components/ArticleDetail";
 import CommentForm from "./_components/CommentForm";
 import Link from "next/link";

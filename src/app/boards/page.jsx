@@ -1,4 +1,3 @@
-import React from "react";
 import BestArticles from "./_components/BestArticles";
 import Articles from "./_components/Articles";
 
