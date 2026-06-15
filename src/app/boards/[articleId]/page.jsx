@@ -13,7 +13,10 @@ export default function Page() {
     <div>
       <ArticleDetail />
       <CommentForm onSuccess={() => setRefreshTrigger((prev) => !prev)} />
-      <CommentList refreshTrigger={refreshTrigger} />
+      <CommentList
+        refreshTrigger={refreshTrigger}
+        onSuccess={() => setRefreshTrigger((prev) => !prev)}
+      />
       <div className="flex justify-center mt-[48px]">
         <Link href="/boards">
           <button className="bg-brand-blue py-[12px] px-[64px] text-cool-gray-100 border-none rounded-[40px] cursor-pointer">

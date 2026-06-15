@@ -42,7 +42,7 @@ export default function Articles() {
       </div>
       <ul className="flex flex-col gap-[24px]">
         {articles.map((article) => (
-          // TODO: 검색 결과 없을 때 빈 상태 UI 추가해야함
+          // TODO: 검색 결과 없을 때 빈 상태 UI 추가해야함, 무한스크롤 방식 적용 시도 해보는거 나쁘지 않을듯
           <Link key={article.id} href={`/boards/${article.id}`}>
             <li className="flex flex-col h-[138px] bg-[#FCFCFC] gap-[16px] border-b border-cool-gray-200">
               <span className="flex gap-[8px] justify-between">

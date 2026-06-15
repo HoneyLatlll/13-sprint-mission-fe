@@ -19,7 +19,7 @@ export default function CommentForm({ onSuccess }) {
         body: JSON.stringify({ content: comment }),
       },
     );
-    if (!res.ok) return alert("오류 생김");
+    if (!res.ok) return alert("생성 실패");
     onSuccess();
     setComment("");
   };

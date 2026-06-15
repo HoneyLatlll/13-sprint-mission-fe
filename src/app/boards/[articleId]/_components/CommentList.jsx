@@ -5,7 +5,7 @@ import KebabMenu from "./KebabMenu";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function CommentList({ refreshTrigger }) {
+export default function CommentList({ refreshTrigger, onSuccess }) {
   const { articleId } = useParams();
   const [comments, setComments] = useState([]);
 
@@ -20,6 +20,17 @@ export default function CommentList({ refreshTrigger }) {
     getComments();
   }, [refreshTrigger]);
 
+  const handleDelete = async (commentId) => {
+    const res = await fetch(
+      `http://localhost:3001/articles/${articleId}/comments/${commentId}`,
+      {
+        method: "DELETE",
+      },
+    );
+    if (!res.ok) return alert("삭제 실패");
+    onSuccess();
+  };
+
   return (
     <ul className="flex flex-col gap-[24px]">
       {comments.map((comment) => (
@@ -31,7 +42,11 @@ export default function CommentList({ refreshTrigger }) {
             <p className="text-[14px] font-[400] text-secondary-800">
               {comment.content}
             </p>
-            <KebabMenu />
+            <KebabMenu
+              onSelect={(value) => {
+                if (value === "delete") handleDelete(comment.id);
+              }}
+            />
           </div>
           <div className="flex gap-[8px]">
             <Image
