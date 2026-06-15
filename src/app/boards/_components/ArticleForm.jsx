@@ -51,7 +51,10 @@ export default function ArticleForm({ mode, modeTitle }) {
         <h1 className="text-secondary-800 text-[20px] font-bold">
           {modeTitle}
         </h1>
-        <button className="cursor-pointer text-cool-gray-100 text-[16px] font-[600] px-[23px] py-[12px] bg-brand-blue rounded-[8px]">
+        <button
+          className={` text-cool-gray-100 text-[16px] font-[600] px-[23px] py-[12px] bg-brand-blue rounded-[8px] disabled:bg-secondary-400 ${!articleData.title || !articleData.content ? "cursor-not-allowed" : "cursor-pointer"}`}
+          disabled={!articleData.title || !articleData.content}
+        >
           등록
         </button>
       </div>
