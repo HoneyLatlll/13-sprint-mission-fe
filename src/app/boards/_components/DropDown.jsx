@@ -14,10 +14,10 @@ export default function DropDown({ onSelect }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <button
-      className="border-solid border border-cool-gray-200 rounded-[12px] px-[20px] py-[12px] w-[130px] h-[42px] flex cursor-pointer relative"
+      className="border-cool-gray-200 relative flex h-[42px] w-[130px] cursor-pointer rounded-[12px] border border-solid px-[20px] py-[12px]"
       onClick={() => setIsOpen((prev) => !prev)}
     >
-      <span className="flex items-center justify-between w-full">
+      <span className="flex w-full items-center justify-between">
         <p className="whitespace-nowrap">{sortOptions}</p>
         <Image
           src="/ic_arrow_down.svg"
@@ -27,11 +27,11 @@ export default function DropDown({ onSelect }) {
         />
       </span>
       {isOpen && (
-        <div className="flex flex-col rounded-[8px] absolute top-[45px] left-0 gap-[2px] border-solid border border-cool-gray-200 rounded-[12px] w-full bg-[#FFF]">
+        <div className="border-cool-gray-200 absolute top-[45px] left-0 flex w-full flex-col gap-[2px] rounded-[8px] rounded-[12px] border border-solid bg-[#FFF]">
           {options.map((option) => (
             <span
               key={option.value}
-              className={`w-full border-b border-cool-gray-200 py-[5px] ${option.value === "favoritest" && "border-b-0"}`}
+              className={`border-cool-gray-200 w-full border-b py-[5px] ${option.value === "favoritest" && "border-b-0"}`}
               onClick={() => {
                 setSortOptions(option.label);
                 onSelect(option.value);

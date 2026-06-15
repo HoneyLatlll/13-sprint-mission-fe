@@ -10,20 +10,20 @@ export default async function BestArticles() {
 
   return (
     // TODO: section태그에 aria-label 속성을 나중에 추가하는게 좋을듯 스크린리더가 읽어주는 라벨임 articles 컴포넌트 쪽 section 태그도 마찬가지
-    <section className="flex flex-col gap-[24px] mt-[24px]">
-      <h1 className="text-cool-gray-900 font-bold text-[20px]">
+    <section className="mt-[24px] flex flex-col gap-[24px]">
+      <h1 className="text-cool-gray-900 text-[20px] font-bold">
         베스트 게시글
       </h1>
-      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px] h-[170px]">
+      <ul className="grid h-[170px] grid-cols-1 gap-[24px] md:grid-cols-2 lg:grid-cols-3">
         {BestArticles.data.map((article, index) => (
           <Link key={article.id} href={`/boards/${article.id}`}>
             <li
-              className={`flex flex-col bg-cool-gray-50 rounded-[8px] px-[24px] gap-[20px] pb-[16px] ${(index === 1 && "hidden md:flex") || (index === 2 && "hidden lg:flex")}`}
+              className={`bg-cool-gray-50 flex flex-col gap-[20px] rounded-[8px] px-[24px] pb-[16px] ${(index === 1 && "hidden md:flex") || (index === 2 && "hidden lg:flex")}`}
             >
-              <span className="bg-brand-blue w-[102px] flex justify-center rounded-b-[16px] text-[#FFF] font-bold text-[16px] px-[24px] py-[2px] whitespace-nowrap">
+              <span className="bg-brand-blue flex w-[102px] justify-center rounded-b-[16px] px-[24px] py-[2px] text-[16px] font-bold whitespace-nowrap text-[#FFF]">
                 🏆 Best
               </span>
-              <div className="flex h-[72px] gap-[8px] justify-between">
+              <div className="flex h-[72px] justify-between gap-[8px]">
                 <p className="text-secondary-800 text-[20px] font-[600]">
                   {article.title}
                 </p>

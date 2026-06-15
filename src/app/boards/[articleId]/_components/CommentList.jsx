@@ -53,12 +53,12 @@ export default function CommentList({ refreshTrigger, onSuccess }) {
       {comments.map((comment) => (
         <li
           key={comment.id}
-          className="bg-[#FCFCFC] flex flex-col gap-[24px] mt-[40px] pb-[12px] border-b border-solid border-cool-gray-200"
+          className="border-cool-gray-200 mt-[40px] flex flex-col gap-[24px] border-b border-solid bg-[#FCFCFC] pb-[12px]"
         >
           <div className="flex justify-between">
             {updateCommentId !== comment.id ? (
               <>
-                <p className="text-[14px] font-[400] text-secondary-800">
+                <p className="text-secondary-800 text-[14px] font-[400]">
                   {comment.content}
                 </p>
                 <KebabMenu
@@ -72,16 +72,16 @@ export default function CommentList({ refreshTrigger, onSuccess }) {
                 />
               </>
             ) : (
-              <div className="flex flex-col w-full gap-[5px]">
+              <div className="flex w-full flex-col gap-[5px]">
                 <textarea
                   value={updatedComment}
-                  className="focus:border border-none rounded-[8px] py-[5px] px-[12px] bg-cool-gray-200 resize-none"
+                  className="bg-cool-gray-200 resize-none rounded-[8px] border-none px-[12px] py-[5px] focus:border"
                   onChange={(e) => setUpdatedComment(e.target.value)}
                   autoFocus
                 />
                 <div className="flex gap-[8px]">
                   <button
-                    className="border-none bg-brand-blue py-[4px] px-[8px] rounded-[8px] text-[14px] text-cool-gray-200 cursor-pointer"
+                    className="bg-brand-blue text-cool-gray-200 cursor-pointer rounded-[8px] border-none px-[8px] py-[4px] text-[14px]"
                     onClick={() => {
                       handleUpdate(comment.id);
                       setUpdateCommentId(null);
@@ -90,7 +90,7 @@ export default function CommentList({ refreshTrigger, onSuccess }) {
                     수정 완료
                   </button>
                   <button
-                    className="border-none bg-brand-blue text-[14px] text-cool-gray-200 rounded-[8px] py-[4px] px-[8px] cursor-pointer"
+                    className="bg-brand-blue text-cool-gray-200 cursor-pointer rounded-[8px] border-none px-[8px] py-[4px] text-[14px]"
                     onClick={() => setUpdateCommentId(null)}
                   >
                     수정 취소
@@ -107,10 +107,10 @@ export default function CommentList({ refreshTrigger, onSuccess }) {
               height={32}
             />
             <div>
-              <p className="text-[12px] font-[400] text-secondary-600">
+              <p className="text-secondary-600 text-[12px] font-[400]">
                 {comment.article.userName}
               </p>
-              <p className="text-[12px] font-[400] text-secondary-400">
+              <p className="text-secondary-400 text-[12px] font-[400]">
                 {/* TODO:createdAt 활용해서 정확한 등록 시간으로 바꿔야할듯 */}
                 {comment.createdAt}
               </p>

@@ -23,11 +23,11 @@ export default function KebabMenu({ onSelect }) {
         height={24}
       />
       {isOpen && (
-        <span className="absolute top-7 right-0 flex flex-col w-[139px] h-[92px] border border-cool-gray-200 rounded-[8px] bg-[#FFF] text-[16px] font-[400]">
+        <span className="border-cool-gray-200 absolute top-7 right-0 flex h-[92px] w-[139px] flex-col rounded-[8px] border bg-[#FFF] text-[16px] font-[400]">
           {options.map((option) => (
             <p
               key={option.value}
-              className={`py-[10px] text-secondary-500 ${option.value === "update" && "border-b border-cool-gray-200"}`}
+              className={`text-secondary-500 py-[10px] ${option.value === "update" && "border-cool-gray-200 border-b"}`}
               onClick={() => onSelect(option.value)}
             >
               {option.label}

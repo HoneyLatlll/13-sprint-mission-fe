@@ -17,9 +17,9 @@ export default function Page() {
         refreshTrigger={refreshTrigger}
         onSuccess={() => setRefreshTrigger((prev) => !prev)}
       />
-      <div className="flex justify-center mt-[48px]">
+      <div className="mt-[48px] flex justify-center">
         <Link href="/boards">
-          <button className="bg-brand-blue py-[12px] px-[64px] text-cool-gray-100 border-none rounded-[40px] cursor-pointer">
+          <button className="bg-brand-blue text-cool-gray-100 cursor-pointer rounded-[40px] border-none px-[64px] py-[12px]">
             목록으로 돌아가기 ↩
           </button>
         </Link>

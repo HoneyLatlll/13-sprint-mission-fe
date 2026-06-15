@@ -52,20 +52,20 @@ export default function ArticleForm({ mode, modeTitle }) {
           {modeTitle}
         </h1>
         <button
-          className={` text-cool-gray-100 text-[16px] font-[600] px-[23px] py-[12px] bg-brand-blue rounded-[8px] disabled:bg-secondary-400 ${!articleData.title || !articleData.content ? "cursor-not-allowed" : "cursor-pointer"}`}
+          className={`text-cool-gray-100 bg-brand-blue disabled:bg-secondary-400 rounded-[8px] px-[23px] py-[12px] text-[16px] font-[600] ${!articleData.title || !articleData.content ? "cursor-not-allowed" : "cursor-pointer"}`}
           disabled={!articleData.title || !articleData.content}
         >
           등록
         </button>
       </div>
-      <div className="flex flex-col gap-[24px] mt-[32px]">
+      <div className="mt-[32px] flex flex-col gap-[24px]">
         <div className="flex flex-col gap-[12px]">
           <label htmlFor="title" className="text-[18px] font-bold">
             *제목
           </label>
           <input
             id="title"
-            className="border py-[16px] px-[24px] border-none rounded-[12px] bg-cool-gray-100 focus:outline-none"
+            className="bg-cool-gray-100 rounded-[12px] border border-none px-[24px] py-[16px] focus:outline-none"
             placeholder="제목을 입력해주세요"
             value={articleData.title}
             onChange={(e) =>
@@ -79,7 +79,7 @@ export default function ArticleForm({ mode, modeTitle }) {
           </label>
           <textarea
             id="content"
-            className="resize-none border-none rounded-[12px] bg-cool-gray-100 py-[16px] px-[24px] h-[282px] focus:outline-none"
+            className="bg-cool-gray-100 h-[282px] resize-none rounded-[12px] border-none px-[24px] py-[16px] focus:outline-none"
             placeholder="내용을 입력해주세요"
             value={articleData.content}
             onChange={(e) =>

@@ -21,10 +21,10 @@ export default function ArticleDetail() {
     getDetailArticle(articleId);
   }, []);
   return (
-    <section className="w-full mt-[32px] flex flex-col gap-[16px]">
+    <section className="mt-[32px] flex w-full flex-col gap-[16px]">
       {/* TODO: 인라인 요소 묶을 때는 span써도 되지만 flex justify-content같은 블록 스타일을 쓰고 있으면 div태그가 맞다 근데 다른곳에서도 이미 div안쓰고 span써서 다 바꾸기 귀찮은데 아.. */}
       <span className="flex justify-between">
-        <p className="text-secondary-800 font-bold text-[20px]">
+        <p className="text-secondary-800 text-[20px] font-bold">
           {article.title}
         </p>
         <KebabMenu
@@ -34,7 +34,7 @@ export default function ArticleDetail() {
           }}
         />
       </span>
-      <span className="flex items-center gap-[10px] border-b border-solid border-cool-gray-200 pb-[16px]">
+      <span className="border-cool-gray-200 flex items-center gap-[10px] border-b border-solid pb-[16px]">
         <Image
           src="/ic_profile.svg"
           alt="사용자 기본 프로필"
@@ -44,7 +44,7 @@ export default function ArticleDetail() {
         <p className="text-secondary-600 text-[14px] font-[500]">
           {article.userName}
         </p>
-        <p className="text-secondary-400 text-[14px] font-[400] mr-[30px]">
+        <p className="text-secondary-400 mr-[30px] text-[14px] font-[400]">
           {!isLoading && article.createdAt.slice(0, 10)}
         </p>
         <Image
@@ -54,14 +54,14 @@ export default function ArticleDetail() {
           height={34}
           className="mr-[30px]"
         />
-        <span className="border border-cool-gray-200 rounded-[35px] px-[12px] py-[4px]">
-          <p className="text-[16px] text-secondary-500 font-[500]">
+        <span className="border-cool-gray-200 rounded-[35px] border px-[12px] py-[4px]">
+          <p className="text-secondary-500 text-[16px] font-[500]">
             ❤ {article.favorite}
           </p>
         </span>
       </span>
       <span>
-        <p className="font-[400] text-secondary-800 text-[18px]">
+        <p className="text-secondary-800 text-[18px] font-[400]">
           {article.content}
         </p>
       </span>
