@@ -5,7 +5,7 @@ import KebabMenu from "./KebabMenu";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function CommentList() {
+export default function CommentList({ refreshTrigger }) {
   const { articleId } = useParams();
   const [comments, setComments] = useState([]);
 
@@ -18,7 +18,7 @@ export default function CommentList() {
       setComments(commentData.data);
     }
     getComments();
-  }, []);
+  }, [refreshTrigger]);
 
   return (
     <ul className="flex flex-col gap-[24px]">
