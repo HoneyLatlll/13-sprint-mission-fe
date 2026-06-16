@@ -9,19 +9,25 @@ import EmptyState from "./EmptyState";
 export default function Articles() {
   const [sortValue, setSortValue] = useState("latest");
   const [keyword, setKeyword] = useState("");
+  const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedKeyword(keyword), 500);
+    return () => clearTimeout(timer);
+  }, [keyword]);
 
   useEffect(() => {
     async function getArticles() {
       const res = await fetch(
         //TODO: url 부분 env파일로 관리해야 코드가 깔끔해질듯
-        `http://localhost:3001/articles?sort=${sortValue}&keyword=${keyword}`,
+        `http://localhost:3001/articles?sort=${sortValue}&keyword=${debouncedKeyword}`,
       );
       const articles = await res.json();
       setArticles(articles.data);
     }
     getArticles();
-  }, [sortValue, keyword]);
+  }, [sortValue, debouncedKeyword]);
   return (
     <section className="mt-[40px] flex flex-col gap-[24px]">
       <div className="flex items-center justify-between">
