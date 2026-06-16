@@ -3,15 +3,18 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="w-full flex h-[160px] bg-[#111827] mx-auto mt-[24px] px-[16px] py-[32px] md:px-[24px] lg:px-[200px]">
-      <div className="w-full flex justify-between">
-        <div className="text-[#9CA3AF] whitespace-nowrap">@codeit - 2024</div>
-        <div className="flex text-[#9CA3AF] gap-[30px] whitespace-nowrap">
-          {/* TODO: p태그 Link로 바꿔야 할 것 같은데 귀찮음.. */}
-          <p>Policy</p>
-          <p>FAQ</p>
+    <footer className="mx-auto mt-[24px] flex h-[160px] w-full bg-[#111827] px-[16px] py-[32px] md:px-[24px] lg:px-[200px]">
+      <div className="flex w-full justify-between">
+        <div className="whitespace-nowrap text-[#9CA3AF]">@codeit - 2024</div>
+        <div className="flex gap-[30px] whitespace-nowrap text-[#9CA3AF]">
+          <Link href="/policy">
+            <p>Policy</p>
+          </Link>
+          <Link href="/faq">
+            <p>FAQ</p>
+          </Link>
         </div>
-        <div className="flex gap-[12px] text-[#9CA3AF] whitespace-nowrap">
+        <div className="flex gap-[12px] whitespace-nowrap text-[#9CA3AF]">
           <Link href="https://facebook.com" target="_blank">
             <Image
               src="/ic_facebook.svg"
