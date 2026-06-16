@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import EmptyState from "../../_components/EmptyState";
 import CommentItem from "./CommentItem";
+import { deleteComment, getComment, updateComment } from "@/app/api/comments";
 
 export default function CommentList({ refreshTrigger, onSuccess }) {
   const { articleId } = useParams();
@@ -11,37 +12,20 @@ export default function CommentList({ refreshTrigger, onSuccess }) {
 
   useEffect(() => {
     async function getComments() {
-      const res = await fetch(
-        `http://localhost:3001/articles/${articleId}/comments`,
-      );
-      const commentData = await res.json();
+      const commentData = await getComment(articleId);
       setComments(commentData.data);
     }
     getComments();
   }, [refreshTrigger]);
 
   const handleDelete = async (commentId) => {
-    const res = await fetch(
-      `http://localhost:3001/articles/${articleId}/comments/${commentId}`,
-      {
-        method: "DELETE",
-      },
-    );
+    const res = await deleteComment(articleId, commentId);
     if (!res.ok) return alert("삭제 실패");
     onSuccess();
   };
 
   const handleUpdate = async (commentId, updatedComment) => {
-    const res = await fetch(
-      `http://localhost:3001/articles/${articleId}/comments/${commentId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ content: updatedComment }),
-      },
-    );
+    const res = await updateComment(articleId, commentId, updatedComment);
     if (!res.ok) return alert("수정 실패");
     onSuccess();
   };

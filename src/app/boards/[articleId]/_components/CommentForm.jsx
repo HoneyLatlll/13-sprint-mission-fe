@@ -1,5 +1,6 @@
 "use client";
 
+import { postComment } from "@/app/api/comments";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
@@ -9,16 +10,7 @@ export default function CommentForm({ onSuccess }) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(
-      `http://localhost:3001/articles/${articleId}/comments`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ content: comment }),
-      },
-    );
+    const res = await postComment(articleId, comment);
     if (!res.ok) return alert("생성 실패");
     onSuccess();
     setComment("");

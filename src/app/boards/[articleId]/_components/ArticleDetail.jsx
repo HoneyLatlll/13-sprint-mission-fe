@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import KebabMenu from "./KebabMenu";
 import { useParams, useRouter } from "next/navigation";
+import { deleteDetailArticle, getDetailArticleData } from "@/app/api/articles";
 
 export default function ArticleDetail() {
   const router = useRouter();
@@ -13,8 +14,7 @@ export default function ArticleDetail() {
 
   useEffect(() => {
     async function getDetailArticle(articleId) {
-      const res = await fetch(`http://localhost:3001/articles/${articleId}`);
-      const articleData = await res.json();
+      const articleData = await getDetailArticleData(articleId);
       setIsLoading(false);
       setArticle(articleData.data);
     }
@@ -30,7 +30,10 @@ export default function ArticleDetail() {
         <KebabMenu
           onSelect={(value) => {
             if (value === "update") router.push(`/boards/${articleId}/update`);
-            if (value === "delete") router.replace("/boards");
+            if (value === "delete") {
+              deleteDetailArticle(articleId);
+              router.replace("/boards");
+            }
           }}
         />
       </span>

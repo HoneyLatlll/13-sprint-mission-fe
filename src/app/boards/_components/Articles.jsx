@@ -5,6 +5,7 @@ import DropDown from "./DropDown";
 import { useEffect, useState } from "react";
 import EmptyState from "./EmptyState";
 import ArticleItem from "./ArticleItem";
+import { getArticles } from "@/app/api/articles";
 
 export default function Articles() {
   const [sortValue, setSortValue] = useState("latest");
@@ -18,15 +19,11 @@ export default function Articles() {
   }, [keyword]);
 
   useEffect(() => {
-    async function getArticles() {
-      const res = await fetch(
-        //TODO: url 부분 env파일로 관리해야 코드가 깔끔해질듯
-        `http://localhost:3001/articles?sort=${sortValue}&keyword=${debouncedKeyword}`,
-      );
-      const articles = await res.json();
-      setArticles(articles.data);
+    async function fetchArticles() {
+      const data = await getArticles(sortValue, debouncedKeyword);
+      setArticles(data);
     }
-    getArticles();
+    fetchArticles();
   }, [sortValue, debouncedKeyword]);
   return (
     <section className="mt-[40px] flex flex-col gap-[24px]">

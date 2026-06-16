@@ -1,5 +1,10 @@
 "use client";
 
+import {
+  getDetailArticleData,
+  postArticle,
+  updateArticle,
+} from "@/app/api/articles";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -11,23 +16,11 @@ export default function ArticleForm({ mode, modeTitle }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (mode === "create") {
-      await fetch("http://localhost:3001/articles", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(articleData),
-      });
-      router.replace("/boards");
+      const id = await postArticle(articleData);
+      router.replace(`/boards/${id}`);
     }
     if (mode === "update") {
-      await fetch(`http://localhost:3001/articles/${articleId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(articleData),
-      });
+      updateArticle(articleData, articleId);
       router.replace(`/boards/${articleId}`);
     }
   };
@@ -35,8 +28,7 @@ export default function ArticleForm({ mode, modeTitle }) {
   useEffect(() => {
     if (mode === "update") {
       async function getArticleData() {
-        const res = await fetch(`http://localhost:3001/articles/${articleId}`);
-        const articleData = await res.json();
+        const articleData = await getDetailArticleData(articleId);
         setArticleData({
           title: articleData.data.title,
           content: articleData.data.content,
