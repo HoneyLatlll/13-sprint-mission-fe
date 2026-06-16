@@ -3,6 +3,7 @@
 import Image from "next/image";
 import KebabMenu from "./KebabMenu";
 import { useState } from "react";
+import { formatTimeAgo } from "@/app/utils/time";
 
 export default function CommentItem({ comment, handleDelete, handleUpdate }) {
   const [updatedComment, setUpdatedComment] = useState("");
@@ -70,7 +71,7 @@ export default function CommentItem({ comment, handleDelete, handleUpdate }) {
           </p>
           <p className="text-secondary-400 text-[12px] font-[400]">
             {/* TODO:createdAt 활용해서 정확한 등록 시간으로 바꿔야할듯 */}
-            {comment.createdAt}
+            {formatTimeAgo(comment.createdAt)}
           </p>
         </div>
       </div>
