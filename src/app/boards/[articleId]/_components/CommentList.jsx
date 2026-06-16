@@ -4,6 +4,7 @@ import Image from "next/image";
 import KebabMenu from "./KebabMenu";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import EmptyState from "../../_components/EmptyState";
 
 export default function CommentList({ refreshTrigger, onSuccess }) {
   const { articleId } = useParams();
@@ -51,19 +52,11 @@ export default function CommentList({ refreshTrigger, onSuccess }) {
   return (
     <ul className="flex flex-col gap-[24px]">
       {!comments.length ? (
-        <div className="mt-[40px] flex flex-col items-center gap-[37px]">
-          <Image
-            src="/ic_empty_comment.svg"
-            alt="빈 댓글"
-            width={100}
-            height={99}
-          />
-          <p className="text-secondary-400 text-center text-[16px] font-[400]">
-            아직 댓글이 없어요,
-            <br />
-            지금 댓글을 달아보세요!
-          </p>
-        </div>
+        <EmptyState>
+          아직 댓글이 없어요,
+          <br />
+          지금 댓글을 달아보세요!
+        </EmptyState>
       ) : (
         comments.map((comment) => (
           <li
