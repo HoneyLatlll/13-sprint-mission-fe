@@ -12,6 +12,7 @@ export default function Articles() {
   const [keyword, setKeyword] = useState("");
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedKeyword(keyword), 500);
@@ -20,11 +21,14 @@ export default function Articles() {
 
   useEffect(() => {
     async function fetchArticles() {
+      setIsLoading(true);
       const data = await getArticles(sortValue, debouncedKeyword);
       setArticles(data);
+      setIsLoading(false);
     }
     fetchArticles();
   }, [sortValue, debouncedKeyword]);
+
   return (
     <section
       className="mt-[40px] flex flex-col gap-[24px]"
@@ -47,7 +51,9 @@ export default function Articles() {
         <DropDown onSelect={setSortValue} />
       </div>
       <ul className="flex flex-col gap-[24px]">
-        {!articles.length ? (
+        {isLoading ? (
+          <EmptyState>게시글 로딩 중...</EmptyState>
+        ) : !articles.length ? (
           <EmptyState>
             게시글이 없어요
             <br />

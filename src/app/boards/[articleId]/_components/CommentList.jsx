@@ -9,11 +9,14 @@ import { deleteComment, getComment, updateComment } from "@/app/api/comments";
 export default function CommentList({ refreshTrigger, onSuccess }) {
   const { articleId } = useParams();
   const [comments, setComments] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function getComments() {
+      setIsLoading(true);
       const commentData = await getComment(articleId);
       setComments(commentData.data);
+      setIsLoading(false);
     }
     getComments();
   }, [refreshTrigger]);
@@ -29,6 +32,8 @@ export default function CommentList({ refreshTrigger, onSuccess }) {
     if (!res.ok) return alert("수정 실패");
     onSuccess();
   };
+
+  if (isLoading) return <EmptyState>댓글 로딩 중...</EmptyState>;
 
   return (
     <ul className="flex flex-col gap-[24px]">

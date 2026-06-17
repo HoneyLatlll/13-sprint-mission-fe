@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import KebabMenu from "./KebabMenu";
 import { useParams, useRouter } from "next/navigation";
 import { deleteDetailArticle, getDetailArticleData } from "@/app/api/articles";
+import EmptyState from "../../_components/EmptyState";
 
 export default function ArticleDetail() {
   const router = useRouter();
@@ -14,12 +15,15 @@ export default function ArticleDetail() {
 
   useEffect(() => {
     async function getDetailArticle(articleId) {
+      setIsLoading(true);
       const articleData = await getDetailArticleData(articleId);
-      setIsLoading(false);
       setArticle(articleData.data);
+      setIsLoading(false);
     }
     getDetailArticle(articleId);
   }, []);
+
+  if (isLoading) return <EmptyState>상세 게시글 로딩 중...</EmptyState>;
   return (
     <section
       className="mt-[32px] flex w-full flex-col gap-[16px]"
@@ -51,7 +55,7 @@ export default function ArticleDetail() {
           {article.userName}
         </p>
         <p className="text-secondary-400 mr-[30px] text-[14px] font-[400]">
-          {!isLoading && article.createdAt.slice(0, 10)}
+          {article.createdAt.slice(0, 10)}
         </p>
         <Image
           src="/ic_separator.svg"
