@@ -21,7 +21,10 @@ export default function ArticleDetail() {
     getDetailArticle(articleId);
   }, []);
   return (
-    <section className="mt-[32px] flex w-full flex-col gap-[16px]">
+    <section
+      className="mt-[32px] flex w-full flex-col gap-[16px]"
+      aria-label="상세 게시글"
+    >
       {/* TODO: 인라인 요소 묶을 때는 span써도 되지만 flex justify-content같은 블록 스타일을 쓰고 있으면 div태그가 맞다 근데 다른곳에서도 이미 div안쓰고 span써서 다 바꾸기 귀찮은데 아.. */}
       <span className="flex justify-between">
         <p className="text-secondary-800 text-[20px] font-bold">

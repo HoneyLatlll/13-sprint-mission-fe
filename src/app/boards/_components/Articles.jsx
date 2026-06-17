@@ -26,7 +26,10 @@ export default function Articles() {
     fetchArticles();
   }, [sortValue, debouncedKeyword]);
   return (
-    <section className="mt-[40px] flex flex-col gap-[24px]">
+    <section
+      className="mt-[40px] flex flex-col gap-[24px]"
+      aria-label="게시글 목록"
+    >
       <div className="flex items-center justify-between">
         <h1 className="text-cool-gray-900 text-[20px] font-bold">게시글</h1>
         <Link href="/boards/create">

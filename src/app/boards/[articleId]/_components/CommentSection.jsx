@@ -8,12 +8,12 @@ export default function CommentSection() {
   const [refreshTrigger, setRefreshTrigger] = useState(false);
 
   return (
-    <div>
+    <section aria-label="댓글">
       <CommentForm onSuccess={() => setRefreshTrigger((prev) => !prev)} />
       <CommentList
         refreshTrigger={refreshTrigger}
         onSuccess={() => setRefreshTrigger((prev) => !prev)}
       />
-    </div>
+    </section>
   );
 }
