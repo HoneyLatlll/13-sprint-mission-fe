@@ -1,6 +1,13 @@
 import "./globals.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import localFont from "next/font/local";
+
+const pretendard = localFont({
+  src: "./fonts/PretendardVariable.woff2",
+  variable: "--font-pretendard",
+  weight: "100 900",
+});
 
 export const metadata = {
   title: "Panda Market",
@@ -9,7 +16,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="ko" className={pretendard.variable}>
       <body className="flex min-h-screen flex-col">
         <Header />
         <main className="mx-auto w-full max-w-[1200px] flex-1 px-[16px] md:px-[20px]">
