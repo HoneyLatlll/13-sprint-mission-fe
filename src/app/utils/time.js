@@ -1,5 +1,6 @@
 export function formatTimeAgo(createdAt) {
-  const allmsTime = Date.now() - new Date(createdAt).getTime();
+  const normalized = createdAt.endsWith("Z") ? createdAt : createdAt + "Z";
+  const allmsTime = Date.now() - new Date(normalized).getTime();
   const allSecond = Math.floor(allmsTime / 1000);
   const allMinute = Math.floor(allSecond / 60);
   const allTime = Math.floor(allMinute / 60);
