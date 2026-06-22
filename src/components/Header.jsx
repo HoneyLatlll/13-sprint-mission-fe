@@ -2,15 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 export default function Header() {
   const path = usePathname();
+  const router = useRouter();
 
   return (
-    <header className="w-full h-[70] sticky top-0 z-10 border-[#DFDFDF] border-b flex items-center bg-[#FFF]">
-      <div className="w-full flex justify-between items-center px-[16px] md:px-[24px] lg:px-[200px]">
+    <header className="sticky top-0 z-10 flex h-[70] w-full items-center border-b border-[#DFDFDF] bg-[#FFF]">
+      <div className="flex w-full items-center justify-between px-[16px] md:px-[24px] lg:px-[200px]">
         <div className="flex items-center">
           <Link className="flex gap-[8.592px]" href="/">
             <Image
@@ -20,20 +21,20 @@ export default function Header() {
               height={40}
               className="hidden md:block"
             />
-            <p className="text-[#3692FF] font-bold text-[20.202px] mr-[32px] whitespace-nowrap md:text-[25.633px] text-center">
+            <p className="mr-[32px] text-center text-[20.202px] font-bold whitespace-nowrap text-[#3692FF] md:text-[25.633px]">
               판다마켓
             </p>
           </Link>
           <div className="flex gap-[8px] md:gap-[40px]">
             <Link
               href="/boards"
-              className={`${path.startsWith("/boards") ? "text-[#3692FF]" : "text-[#4B5563]"} font-bold whitespace-nowrap text-[16px] md:text-[18px]`}
+              className={`${path.startsWith("/boards") ? "text-[#3692FF]" : "text-[#4B5563]"} text-[16px] font-bold whitespace-nowrap md:text-[18px]`}
             >
               자유게시판
             </Link>
             <Link
               href="/"
-              className="font-bold text-[#4B5563] whitespace-nowrap text-[16px] md:text-[18px]"
+              className="text-[16px] font-bold whitespace-nowrap text-[#4B5563] md:text-[18px]"
             >
               중고마켓
             </Link>
@@ -41,7 +42,10 @@ export default function Header() {
         </div>
         <div>
           {/* TODO: 버튼 많이 쓰이니까 컴포넌트로 분리하는 것도 괜찮아보임 */}
-          <button className="cursor-pointer text-white bg-brand-blue px-[23px] py-[12px] rounded-[8px] whitespace-nowrap font-[600]">
+          <button
+            className="bg-brand-blue cursor-pointer rounded-[8px] px-[23px] py-[12px] font-[600] whitespace-nowrap text-white"
+            onClick={() => router.push("/login")}
+          >
             로그인
           </button>
         </div>
