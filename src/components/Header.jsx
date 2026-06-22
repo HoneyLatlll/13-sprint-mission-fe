@@ -7,7 +7,6 @@ import React from "react";
 
 export default function Header() {
   const path = usePathname();
-  const router = useRouter();
 
   return (
     <header className="sticky top-0 z-10 flex h-[70] w-full items-center border-b border-[#DFDFDF] bg-[#FFF]">
@@ -42,12 +41,12 @@ export default function Header() {
         </div>
         <div>
           {/* TODO: 버튼 많이 쓰이니까 컴포넌트로 분리하는 것도 괜찮아보임 */}
-          <button
+          <Link
             className="bg-brand-blue cursor-pointer rounded-[8px] px-[23px] py-[12px] font-[600] whitespace-nowrap text-white"
-            onClick={() => router.push("/login")}
+            href="/login"
           >
             로그인
-          </button>
+          </Link>
         </div>
       </div>
     </header>

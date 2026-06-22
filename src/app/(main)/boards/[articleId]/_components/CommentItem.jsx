@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import KebabMenu from "../../../../components/KebabMenu";
+import KebabMenu from "../../../../../components/KebabMenu";
 import { useState } from "react";
 import { formatTimeAgo } from "@/app/utils/time";
 
