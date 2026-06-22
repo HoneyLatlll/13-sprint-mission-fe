@@ -7,7 +7,7 @@ export default function page() {
     <section className="mx-auto flex min-h-screen w-[343px] flex-col justify-center md:w-[640px]">
       <AuthHeader />
       <AuthForm />
-      <AuthFooter />
+      <AuthFooter type="login" />
     </section>
   );
 }
