@@ -1,12 +1,13 @@
 "use client";
 
+import { useAuth } from "@/providers/AuthProvider";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const path = usePathname();
+  const { user } = useAuth();
 
   return (
     <header className="sticky top-0 z-10 flex h-[70] w-full items-center border-b border-[#DFDFDF] bg-[#FFF]">
@@ -41,12 +42,26 @@ export default function Header() {
         </div>
         <div>
           {/* TODO: 버튼 많이 쓰이니까 컴포넌트로 분리하는 것도 괜찮아보임 */}
-          <Link
-            className="bg-brand-blue cursor-pointer rounded-[8px] px-[23px] py-[12px] font-[600] whitespace-nowrap text-white"
-            href="/login"
-          >
-            로그인
-          </Link>
+          {user ? (
+            <span className="flex items-center gap-1.5">
+              <Image
+                src="/ic_profile.svg"
+                width={40}
+                height={40}
+                alt="사용자 기본 프로필"
+              />
+              <p className="text-secondary-600 text-[18px] font-[400]">
+                {user.nickname}
+              </p>
+            </span>
+          ) : (
+            <Link
+              className="bg-brand-blue cursor-pointer rounded-[8px] px-[23px] py-[12px] font-[600] whitespace-nowrap text-white"
+              href="/login"
+            >
+              로그인
+            </Link>
+          )}
         </div>
       </div>
     </header>

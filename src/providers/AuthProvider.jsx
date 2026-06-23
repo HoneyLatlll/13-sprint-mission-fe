@@ -100,7 +100,7 @@ export default function AuthProvider({ children }) {
       if (localStorage.getItem("accessToken")) getUser();
     }, 0);
   }, []);
-
+  console.log("user:", user);
   return (
     <AuthContext.Provider value={{ user, login, logout, register }}>
       {children}
