@@ -3,6 +3,8 @@
 import { useState } from "react";
 import FormField from "./FormField";
 import validateAuthForm from "../_utils/validateAuthForm";
+import { useAuth } from "@/providers/AuthProvider";
+import { useRouter } from "next/navigation";
 
 export default function AuthForm({ type }) {
   const [formData, setFormData] = useState({
@@ -19,8 +21,25 @@ export default function AuthForm({ type }) {
     formData.passwordConfirmation.trim() &&
     formData.password === formData.passwordConfirmation;
 
-  const onSubmit = (e) => {
+  const { register } = useAuth();
+  const router = useRouter();
+
+  const onSubmit = async (e) => {
     e.preventDefault();
+    if (type === "signup") {
+      try {
+        await register(
+          formData.nickname,
+          formData.email,
+          formData.password,
+          formData.passwordConfirmation,
+        );
+        alert("회원가입에 성공했습니다.");
+        router.push("/items");
+      } catch (err) {
+        alert(err.message);
+      }
+    }
   };
 
   return (
