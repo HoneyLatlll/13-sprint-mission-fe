@@ -8,21 +8,27 @@ export default function FormField({
   type,
   typetext,
   isPassword = false,
+  errorMessage,
   ...rest
 }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
-    <div className="relative flex flex-col gap-3">
+    <div className="relative mb-3 flex flex-col gap-3">
       <label htmlFor={id} className="text-secondary-800 text-[18px] font-bold">
         {typetext}
       </label>
       <input
         id={id}
         type={isPasswordVisible ? "text" : type}
-        className="bg-cool-gray-100 h-14 rounded-xl border-none px-6 py-4 focus:outline-none"
+        className={`bg-cool-gray-100 h-14 rounded-xl border-none px-6 py-4 ${errorMessage ? "focus:outline-error-red" : "focus:outline-none"}`}
         {...rest}
       />
+      {errorMessage && (
+        <p className="text-error-red absolute top-25 left-5 text-[14px] font-[600]">
+          {errorMessage}
+        </p>
+      )}
       {isPassword && (
         <button
           className="absolute right-5 bottom-4 cursor-pointer"

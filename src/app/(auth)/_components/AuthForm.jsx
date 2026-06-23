@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import FormField from "./FormField";
+import validateAuthForm from "../_utils/validateAuthForm";
 
 export default function AuthForm({ type }) {
   const [formData, setFormData] = useState({
@@ -10,8 +11,20 @@ export default function AuthForm({ type }) {
     password: "",
     passwordConfirmation: "",
   });
+  const [errors, setErrors] = useState({});
+  const isLoginReady = formData.email.trim() && formData.password.trim();
+  const isSignupReady =
+    isLoginReady &&
+    formData.nickname.trim() &&
+    formData.passwordConfirmation.trim() &&
+    formData.password === formData.passwordConfirmation;
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <form className="mb-6 flex flex-col gap-6">
+    <form className="mb-6 flex flex-col gap-6" onSubmit={onSubmit}>
       {type === "login" ? (
         <>
           <FormField
@@ -20,9 +33,13 @@ export default function AuthForm({ type }) {
             typetext="이메일"
             placeholder="이메일을 입력해주세요"
             value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
+            onChange={(e) => {
+              setFormData({ ...formData, email: e.target.value });
+              setErrors(
+                validateAuthForm({ ...formData, email: e.target.value }, type),
+              );
+            }}
+            errorMessage={errors.emailErr}
           />
 
           <FormField
@@ -32,9 +49,16 @@ export default function AuthForm({ type }) {
             placeholder="비밀번호를 입력해주세요"
             isPassword={true}
             value={formData.password}
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
+            onChange={(e) => {
+              setFormData({ ...formData, password: e.target.value });
+              setErrors(
+                validateAuthForm(
+                  { ...formData, password: e.target.value },
+                  type,
+                ),
+              );
+            }}
+            errorMessage={errors.passwordErr}
           />
         </>
       ) : (
@@ -45,9 +69,13 @@ export default function AuthForm({ type }) {
             typetext="이메일"
             placeholder="이메일을 입력해주세요"
             value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
+            onChange={(e) => {
+              setFormData({ ...formData, email: e.target.value });
+              setErrors(
+                validateAuthForm({ ...formData, email: e.target.value }, type),
+              );
+            }}
+            errorMessage={errors.emailErr}
           />
 
           <FormField
@@ -56,9 +84,16 @@ export default function AuthForm({ type }) {
             typetext="닉네임"
             placeholder="닉네임을 입력해주세요"
             value={formData.nickname}
-            onChange={(e) =>
-              setFormData({ ...formData, nickname: e.target.value })
-            }
+            onChange={(e) => {
+              setFormData({ ...formData, nickname: e.target.value });
+              setErrors(
+                validateAuthForm(
+                  { ...formData, nickname: e.target.value },
+                  type,
+                ),
+              );
+            }}
+            errorMessage={errors.nicknameErr}
           />
 
           <FormField
@@ -68,9 +103,16 @@ export default function AuthForm({ type }) {
             placeholder="비밀번호를 입력해주세요"
             isPassword={true}
             value={formData.password}
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
+            onChange={(e) => {
+              setFormData({ ...formData, password: e.target.value });
+              setErrors(
+                validateAuthForm(
+                  { ...formData, password: e.target.value },
+                  type,
+                ),
+              );
+            }}
+            errorMessage={errors.passwordErr}
           />
 
           <FormField
@@ -80,14 +122,30 @@ export default function AuthForm({ type }) {
             placeholder="비밀번호를 다시 한 번 입력해주세요"
             isPassword={true}
             value={formData.passwordConfirmation}
-            onChange={(e) =>
-              setFormData({ ...formData, passwordConfirmation: e.target.value })
-            }
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                passwordConfirmation: e.target.value,
+              });
+              setErrors(
+                validateAuthForm(
+                  {
+                    ...formData,
+                    passwordConfirmation: e.target.value,
+                  },
+                  type,
+                ),
+              );
+            }}
+            errorMessage={errors.confirmErr}
           />
         </>
       )}
 
-      <button className="bg-brand-blue flex cursor-pointer items-center justify-center rounded-[40px] border-none px-31 py-3">
+      <button
+        className="bg-brand-blue disabled:bg-secondary-400 flex cursor-pointer items-center justify-center rounded-[40px] border-none px-31 py-3 disabled:cursor-not-allowed"
+        disabled={type === "login" ? !isLoginReady : !isSignupReady}
+      >
         {type === "login" ? (
           <p className="text-cool-gray-100 h-8 text-[20px] font-[600]">
             로그인
