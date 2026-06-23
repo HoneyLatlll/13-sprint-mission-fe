@@ -57,7 +57,7 @@ export default function AuthProvider({ children }) {
       if (!res.ok) throw new Error("회원가입 오류 생겼음");
       const data = await res.json();
       localStorage.setItem("accessToken", data.accessToken);
-      getUser();
+      await getUser();
     } catch (err) {
       throw err;
     }
@@ -66,6 +66,24 @@ export default function AuthProvider({ children }) {
   const login = async (email, password) => {
     // await authService.login(email, password);
     // await getUser();
+    try {
+      const res = await fetch(
+        "https://panda-market-api.vercel.app/auth/signIn",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        },
+      );
+      if (!res.ok) throw new Error("로그인 오류 생겼음");
+      const data = await res.json();
+      localStorage.setItem("accessToken", data.accessToken);
+      await getUser();
+    } catch (err) {
+      throw err;
+    }
   };
 
   const logout = async () => {

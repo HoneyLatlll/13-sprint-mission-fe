@@ -21,7 +21,7 @@ export default function AuthForm({ type }) {
     formData.passwordConfirmation.trim() &&
     formData.password === formData.passwordConfirmation;
 
-  const { register } = useAuth();
+  const { register, login } = useAuth();
   const router = useRouter();
 
   const onSubmit = async (e) => {
@@ -35,6 +35,15 @@ export default function AuthForm({ type }) {
           formData.passwordConfirmation,
         );
         alert("회원가입에 성공했습니다.");
+        router.push("/items");
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+    if (type === "login") {
+      try {
+        await login(formData.email, formData.password);
+        alert("로그인에 성공했습니다");
         router.push("/items");
       } catch (err) {
         alert(err.message);
