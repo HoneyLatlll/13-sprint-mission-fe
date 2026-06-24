@@ -33,7 +33,7 @@ export default function Header() {
               자유게시판
             </Link>
             <Link
-              href="/"
+              href="/items"
               className="text-[16px] font-bold whitespace-nowrap text-[#4B5563] md:text-[18px]"
             >
               중고마켓
