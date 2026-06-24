@@ -4,17 +4,34 @@ import Image from "next/image";
 import LikeButton from "./LikeButton";
 import KebabMenu from "@/components/KebabMenu";
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 
 export default function ItemDetail() {
-  const { data } = useQuery({
-    queryKey: ["item"],
-    queryFn: async () => fetch(""),
+  const { itemId } = useParams();
+  const { data: item, isPending } = useQuery({
+    queryKey: ["item", itemId],
+    queryFn: async () => {
+      const res = await fetch(
+        `https://panda-market-api.vercel.app/products/${itemId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        },
+      );
+      if (!res.ok) throw new Error(res.status);
+      const item = await res.json();
+      return item;
+    },
   });
+  console.log(item);
+
+  if (isPending) return <p>로딩 중...</p>;
 
   return (
     <div className="border-cool-gray-200 mt-5 flex gap-6 border-b pb-10">
       <Image
-        src="/default_img.jpg"
+        src={item?.images?.[0] || "/default_img.jpg"}
         width={500}
         height={500}
         className="h-125 w-125 rounded-[12px] border-none"
@@ -22,15 +39,19 @@ export default function ItemDetail() {
       />
       <div className="w-full">
         <div className="flex justify-between">
-          <p className="text-secondary-800 text-[24px] font-[600]">제목</p>
+          <p className="text-secondary-800 text-[24px] font-[600]">
+            {item.name}
+          </p>
           <KebabMenu />
         </div>
         <p className="border-cool-gray-200 text-secondary-800 mt-4 border-b pb-4 text-[40px] font-[600]">
-          가격
+          {item.price}
         </p>
-        <p className="text-secondary-600 text-[16px] font-[600]">상품소개</p>
+        <p className="text-secondary-600 mt-6 text-[16px] font-[600]">
+          상품소개
+        </p>
         <p className="text-secondary-600 mt-4 text-[16px] font-[400] wrap-break-word">
-          상품소개글
+          {item.description}
         </p>
         <p className="text-secondary-600 mt-6 text-[16px] font-[600]">
           상품 태그
@@ -38,13 +59,13 @@ export default function ItemDetail() {
         <p className="mt-4">태그</p>
         <div className="mt-15.5 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <p>사용자 기본 프로필</p>
+            <Image src="/ic_profile.svg" width={40} height={40} alt="" />
             <div className="flex flex-col">
               <p className="text-secondary-600 text-[14px] font-[500]">
-                사용자 이름
+                {item.ownerNickname}
               </p>
               <p className="text-secondary-400 text-[14px] font-[400]">
-                생성 일자
+                {item.createdAt.slice(0, 10)}
               </p>
             </div>
           </div>

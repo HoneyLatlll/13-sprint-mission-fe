@@ -31,7 +31,7 @@ export default function AuthProvider({ children }) {
     if (!user.ok) {
       setUser(null);
       setIsInitialized(true);
-      return alert("사용자 정보 가져오는데 실패");
+      return;
     }
     const data = await user.json();
     setUser(data);
@@ -100,6 +100,7 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     setTimeout(() => {
       if (localStorage.getItem("accessToken")) getUser();
+      else setIsInitialized(true);
     }, 0);
   }, []);
   console.log("user:", user);

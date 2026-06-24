@@ -59,7 +59,7 @@ export default function RouteGuard({ children }) {
         setIsLoading(false);
       }
     }, 0);
-  }, [user, pathname, router]);
+  }, [user, pathname, router, isInitialized]);
 
   // 리다이렉트 중이거나 인증 확인 중일 때는 컨텐츠를 표시하지 않음
   if (isLoading) {
