@@ -30,6 +30,7 @@ export default function AuthProvider({ children }) {
     });
     if (!user.ok) {
       setUser(null);
+      setIsInitialized(true);
       return alert("사용자 정보 가져오는데 실패");
     }
     const data = await user.json();
