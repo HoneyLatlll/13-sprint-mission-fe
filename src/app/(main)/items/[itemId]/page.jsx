@@ -1,4 +1,3 @@
-import React from "react";
 import ItemDetail from "./_components/ItemDetail";
 import InquiryForm from "./_components/InquiryForm";
 import CommentList from "./_components/CommentList";

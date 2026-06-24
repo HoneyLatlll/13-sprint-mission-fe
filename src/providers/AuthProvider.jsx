@@ -20,7 +20,7 @@ export const useAuth = () => {
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  // const [isInitialized, setIsInitialized] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const getUser = async () => {
     const user = await fetch("https://panda-market-api.vercel.app/users/me", {
@@ -34,6 +34,7 @@ export default function AuthProvider({ children }) {
     }
     const data = await user.json();
     setUser(data);
+    setIsInitialized(true);
   };
 
   const register = async (nickname, email, password, passwordConfirmation) => {
@@ -102,7 +103,9 @@ export default function AuthProvider({ children }) {
   }, []);
   console.log("user:", user);
   return (
-    <AuthContext.Provider value={{ user, login, logout, register }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, register, isInitialized }}
+    >
       {children}
     </AuthContext.Provider>
   );
