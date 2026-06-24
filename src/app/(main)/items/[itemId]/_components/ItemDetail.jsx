@@ -1,8 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import LikeButton from "./LikeButton";
 import KebabMenu from "@/components/KebabMenu";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ItemDetail() {
+  const { data } = useQuery({
+    queryKey: ["item"],
+    queryFn: async () => fetch(""),
+  });
+
   return (
     <div className="border-cool-gray-200 mt-5 flex gap-6 border-b pb-10">
       <Image
