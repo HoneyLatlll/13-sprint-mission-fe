@@ -4,10 +4,11 @@ import Image from "next/image";
 import LikeButton from "./LikeButton";
 import KebabMenu from "@/components/KebabMenu";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function ItemDetail() {
   const { itemId } = useParams();
+  const router = useRouter();
   const { data: item, isPending } = useQuery({
     queryKey: ["item", itemId],
     queryFn: async () => {
@@ -19,7 +20,14 @@ export default function ItemDetail() {
           },
         },
       );
-      if (!res.ok) throw new Error(res.status);
+      if (!res.ok) {
+        if (res.status === 401) {
+          alert("토큰 만료");
+          router.push("/login");
+          return;
+        }
+        throw new Error("요청 실패");
+      }
       const item = await res.json();
       return item;
     },

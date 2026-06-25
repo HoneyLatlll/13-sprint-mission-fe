@@ -23,19 +23,20 @@ export default function AuthProvider({ children }) {
   const [isInitialized, setIsInitialized] = useState(false);
 
   const getUser = async () => {
-    const user = await fetch("https://panda-market-api.vercel.app/users/me", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    });
-    if (!user.ok) {
-      setUser(null);
+    try {
+      const user = await fetch("https://panda-market-api.vercel.app/users/me", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      if (!user.ok) throw new Error(`에러 발생 HTTP: ${user.status}`);
+      const data = await user.json();
+      setUser(data);
       setIsInitialized(true);
-      return;
+    } catch (err) {
+      console.error(err.message);
+      setIsInitialized(true);
     }
-    const data = await user.json();
-    setUser(data);
-    setIsInitialized(true);
   };
 
   const register = async (nickname, email, password, passwordConfirmation) => {
@@ -56,11 +57,12 @@ export default function AuthProvider({ children }) {
           }),
         },
       );
-      if (!res.ok) throw new Error("회원가입 오류 생겼음");
+      if (!res.ok) throw new Error(`오류 발생 HTTP: ${res.status}`);
       const data = await res.json();
       localStorage.setItem("accessToken", data.accessToken);
       await getUser();
     } catch (err) {
+      console.error(err);
       throw err;
     }
   };
@@ -79,11 +81,12 @@ export default function AuthProvider({ children }) {
           body: JSON.stringify({ email, password }),
         },
       );
-      if (!res.ok) throw new Error("로그인 오류 생겼음");
+      if (!res.ok) throw new Error(`오류 발생 HTTP: ${res.status}`);
       const data = await res.json();
       localStorage.setItem("accessToken", data.accessToken);
       await getUser();
     } catch (err) {
+      console.error(err);
       throw err;
     }
   };
@@ -99,8 +102,7 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     setTimeout(() => {
-      if (localStorage.getItem("accessToken")) getUser();
-      else setIsInitialized(true);
+      getUser();
     }, 0);
   }, []);
   console.log("user:", user);
