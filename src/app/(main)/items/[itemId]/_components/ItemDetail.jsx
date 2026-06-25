@@ -78,7 +78,11 @@ export default function ItemDetail() {
             </div>
           </div>
 
-          <LikeButton />
+          <LikeButton
+            favoriteCount={item.favoriteCount}
+            isFavorite={item.isFavorite}
+            itemId={itemId}
+          />
         </div>
       </div>
     </div>
