@@ -32,8 +32,6 @@ export default function ItemDetail() {
       return item;
     },
   });
-  console.log(item);
-
   if (isPending) return <p>로딩 중...</p>;
 
   return (

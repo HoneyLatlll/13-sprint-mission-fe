@@ -105,7 +105,6 @@ export default function AuthProvider({ children }) {
       getUser();
     }, 0);
   }, []);
-  console.log("user:", user);
   return (
     <AuthContext.Provider
       value={{ user, login, logout, register, isInitialized }}

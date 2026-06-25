@@ -51,6 +51,7 @@ export default function LikeButton({ favoriteCount, isFavorite, itemId }) {
     // use the context returned from onMutate to roll back
     onError: (err, newItem, context) => {
       queryClient.setQueryData(["item", itemId], context.previousTodos);
+      alert("에러 발생해서 롤백처리");
     },
     // Always refetch after error or success:
     onSettled: () => {
