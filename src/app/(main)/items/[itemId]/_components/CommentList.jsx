@@ -1,9 +1,8 @@
 "use client";
 
-import KebabMenu from "@/components/KebabMenu";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import { useParams } from "next/navigation";
+import CommentItem from "./CommentItem";
 
 export default function CommentList() {
   const { itemId } = useParams();
@@ -29,35 +28,7 @@ export default function CommentList() {
   return (
     <div>
       {comments.map((comment) => (
-        <li
-          key={comment.id}
-          className="border-cool-gray-200 mt-[40px] flex flex-col gap-[24px] border-b border-solid bg-[#FCFCFC] pb-[12px]"
-        >
-          <div>
-            <div className="flex w-full justify-between">
-              <p className="text-secondary-800 text-[14px] font-[400]">
-                {comment.content}
-              </p>
-              <KebabMenu />
-            </div>
-          </div>
-          <div className="flex gap-[8px]">
-            <Image
-              src="/ic_profile.svg"
-              alt="사용자 기본 프로필"
-              width={32}
-              height={32}
-            />
-            <div>
-              <p className="text-secondary-600 text-[12px] font-[400]">
-                {comment.writer.nickname}
-              </p>
-              <p className="text-secondary-400 text-[12px] font-[400]">
-                {comment.createdAt.slice(0, 10)}
-              </p>
-            </div>
-          </div>
-        </li>
+        <CommentItem comment={comment} key={comment.id} />
       ))}
     </div>
   );
