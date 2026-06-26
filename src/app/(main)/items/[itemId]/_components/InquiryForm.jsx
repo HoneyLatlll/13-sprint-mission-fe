@@ -8,7 +8,7 @@ export default function InquiryForm() {
   const { itemId } = useParams();
   const queryClient = useQueryClient();
   const [comment, setComment] = useState("");
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (data) =>
       await fetch(
         `https://panda-market-api.vercel.app/products/${itemId}/comments`,
@@ -49,7 +49,10 @@ export default function InquiryForm() {
         value={comment}
       />
       <div className="flex justify-end">
-        <button className="text-cool-gray-100 bg-brand-blue disabled:bg-secondary-400 cursor-pointer rounded-[8px] border-none px-[23px] py-[12px] text-[16px] font-[600]">
+        <button
+          className="text-cool-gray-100 bg-brand-blue disabled:bg-secondary-400 disabled:bg-secondary-400 cursor-pointer rounded-[8px] border-none px-[23px] py-[12px] text-[16px] font-[600] disabled:cursor-not-allowed"
+          disabled={isPending}
+        >
           등록
         </button>
       </div>
