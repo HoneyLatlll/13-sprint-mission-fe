@@ -9,18 +9,27 @@ export default function InquiryForm() {
   const queryClient = useQueryClient();
   const [comment, setComment] = useState("");
   const { mutate, isPending } = useMutation({
-    mutationFn: async (data) =>
-      await fetch(
-        `https://panda-market-api.vercel.app/products/${itemId}/comments`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    mutationFn: async (data) => {
+      try {
+        const res = await fetch(
+          `https://panda-market-api.vercel.app/products/${itemId}/comments`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify(data),
           },
-          body: JSON.stringify(data),
-        },
-      ),
+        );
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.message);
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments", itemId] });
       setComment("");

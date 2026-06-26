@@ -28,18 +28,27 @@ export default function CommentItem({ comment }) {
   });
 
   const { mutate: updateMutate } = useMutation({
-    mutationFn: async (data) =>
-      await fetch(
-        `https://panda-market-api.vercel.app/comments/${comment.id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    mutationFn: async (data) => {
+      try {
+        const res = await fetch(
+          `https://panda-market-api.vercel.app/comments/${comment.id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify(data),
           },
-          body: JSON.stringify(data),
-        },
-      ),
+        );
+        if (!res.ok) {
+          const ErrorData = await res.json();
+          throw new Error(ErrorData.message);
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments", itemId] });
     },
