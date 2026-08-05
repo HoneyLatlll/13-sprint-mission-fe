@@ -1,7 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
+
+interface FormFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  id: string;
+  type: "text" | "email" | "password";
+  typetext: string;
+  isPassword?: boolean;
+  errorMessage?: string;
+}
 
 export default function FormField({
   id,
@@ -10,8 +18,8 @@ export default function FormField({
   isPassword = false,
   errorMessage,
   ...rest
-}) {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+}: FormFieldProps) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   return (
     <div className="relative mb-3 flex flex-col gap-3">
