@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { AuthProps } from "../_types/auth";
 
-export default function AuthFooter({ type }) {
+export default function AuthFooter({ type }: AuthProps) {
   return (
     <footer className="flex flex-col gap-[24px]">
       <div className="flex h-[74px] w-full items-center justify-between rounded-[8px] border-none bg-[#E6F2FF] px-[23px] py-[16px]">
