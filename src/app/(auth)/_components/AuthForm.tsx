@@ -1,43 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import FormField from "./FormField";
 import validateAuthForm from "../_utils/validateAuthForm";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
+import { AuthFormData, AuthProps, Errors } from "../_types/auth";
 
-export default function AuthForm({ type }) {
-  const [formData, setFormData] = useState({
+export default function AuthForm({ type }: AuthProps) {
+  const [formData, setFormData] = useState<AuthFormData>({
     email: "",
     nickname: "",
     password: "",
     passwordConfirmation: "",
   });
-  const [errors, setErrors] = useState({});
-  const isLoginReady = formData.email.trim() && formData.password.trim();
-  const isSignupReady =
+  const [errors, setErrors] = useState<Errors>({});
+  const isLoginReady: boolean = !!(
+    formData.email.trim() && formData.password.trim()
+  );
+  const isSignupReady: boolean = !!(
     isLoginReady &&
     formData.nickname.trim() &&
     formData.passwordConfirmation.trim() &&
-    formData.password === formData.passwordConfirmation;
+    formData.password === formData.passwordConfirmation
+  );
 
   const { register, login } = useAuth();
   const router = useRouter();
-
-  const onSubmit = async (e) => {
+  const onSubmit = async (
+    e: React.SubmitEvent<HTMLFormElement>,
+  ): Promise<void> => {
     e.preventDefault();
     if (type === "signup") {
       try {
-        await register(
-          formData.nickname,
-          formData.email,
-          formData.password,
-          formData.passwordConfirmation,
-        );
+        await register(formData.nickname, formData.email, formData.password);
         alert("회원가입에 성공했습니다.");
         router.push("/items");
       } catch (err) {
-        alert(err.message);
+        if (err instanceof Error) alert(err.message);
       }
     }
     if (type === "login") {
@@ -46,7 +46,7 @@ export default function AuthForm({ type }) {
         alert("로그인에 성공했습니다");
         router.push("/items");
       } catch (err) {
-        alert(err.message);
+        if (err instanceof Error) alert(err.message);
       }
     }
   };
@@ -61,7 +61,7 @@ export default function AuthForm({ type }) {
             typetext="이메일"
             placeholder="이메일을 입력해주세요"
             value={formData.email}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setFormData({ ...formData, email: e.target.value });
               setErrors(
                 validateAuthForm({ ...formData, email: e.target.value }, type),
@@ -77,7 +77,7 @@ export default function AuthForm({ type }) {
             placeholder="비밀번호를 입력해주세요"
             isPassword={true}
             value={formData.password}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setFormData({ ...formData, password: e.target.value });
               setErrors(
                 validateAuthForm(
@@ -97,7 +97,7 @@ export default function AuthForm({ type }) {
             typetext="이메일"
             placeholder="이메일을 입력해주세요"
             value={formData.email}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setFormData({ ...formData, email: e.target.value });
               setErrors(
                 validateAuthForm({ ...formData, email: e.target.value }, type),
@@ -112,7 +112,7 @@ export default function AuthForm({ type }) {
             typetext="닉네임"
             placeholder="닉네임을 입력해주세요"
             value={formData.nickname}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setFormData({ ...formData, nickname: e.target.value });
               setErrors(
                 validateAuthForm(
@@ -131,7 +131,7 @@ export default function AuthForm({ type }) {
             placeholder="비밀번호를 입력해주세요"
             isPassword={true}
             value={formData.password}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setFormData({ ...formData, password: e.target.value });
               setErrors(
                 validateAuthForm(
@@ -150,7 +150,7 @@ export default function AuthForm({ type }) {
             placeholder="비밀번호를 다시 한 번 입력해주세요"
             isPassword={true}
             value={formData.passwordConfirmation}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setFormData({
                 ...formData,
                 passwordConfirmation: e.target.value,
