@@ -1,17 +1,33 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { BASE_URL } from "@/app/api/config";
+import { User } from "@/types/user";
 
-const AuthContext = createContext({
-  login: () => {},
-  // logout: () => {},
-  user: null,
-  // updateUser: () => {},
-  register: () => {},
-});
+interface AuthProviderProps {
+  children: React.ReactNode;
+}
 
-export const useAuth = () => {
+type AuthContextType = {
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+  user: User | null;
+  register: (
+    nickname: string,
+    email: string,
+    password: string,
+  ) => Promise<void>;
+  isInitialized: boolean;
+};
+
+type LoginData = {
+  userData: User;
+  accessToken: string;
+};
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
@@ -19,11 +35,12 @@ export const useAuth = () => {
   return context;
 };
 
-export default function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [isInitialized, setIsInitialized] = useState(false);
+export default function AuthProvider({ children }: AuthProviderProps) {
+  const [user, setUser] = useState<AuthContextType["user"]>(null);
+  const [isInitialized, setIsInitialized] =
+    useState<AuthContextType["isInitialized"]>(false);
 
-  const getUser = async () => {
+  const getUser = async (): Promise<void> => {
     try {
       const res = await fetch(`${BASE_URL}/users/me`, {
         headers: {
@@ -31,16 +48,22 @@ export default function AuthProvider({ children }) {
         },
       });
       if (!res.ok) throw new Error(`에러 발생 HTTP: ${res.status}`);
-      const data = await res.json();
+      const data: User = await res.json();
       setUser(data);
       setIsInitialized(true);
     } catch (err) {
-      console.error(err.message);
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
       setIsInitialized(true);
     }
   };
 
-  const register = async (nickname, email, password) => {
+  const register = async (
+    nickname: string,
+    email: User["email"],
+    password: string,
+  ): Promise<void> => {
     try {
       const res = await fetch(`${BASE_URL}/users`, {
         method: "POST",
@@ -54,16 +77,18 @@ export default function AuthProvider({ children }) {
         }),
       });
       if (!res.ok) throw new Error(`오류 발생 HTTP: ${res.status}`);
-      const data = await res.json();
-      localStorage.setItem("accessToken", data.accessToken);
-      await getUser();
     } catch (err) {
-      console.error(err);
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
       throw err;
     }
   };
 
-  const login = async (email, password) => {
+  const login = async (
+    email: User["email"],
+    password: string,
+  ): Promise<void> => {
     try {
       const res = await fetch(`${BASE_URL}/users/login`, {
         method: "POST",
@@ -73,16 +98,18 @@ export default function AuthProvider({ children }) {
         body: JSON.stringify({ email, password }),
       });
       if (!res.ok) throw new Error(`오류 발생 HTTP: ${res.status}`);
-      const data = await res.json();
+      const data: LoginData = await res.json();
       localStorage.setItem("accessToken", data.accessToken);
       await getUser();
     } catch (err) {
-      console.error(err);
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
       throw err;
     }
   };
 
-  const logout = async () => {
+  const logout = (): void => {
     setUser(null);
   };
 
