@@ -5,7 +5,7 @@ import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 
 export default function CommentSection() {
-  const [refreshTrigger, setRefreshTrigger] = useState(false);
+  const [refreshTrigger, setRefreshTrigger] = useState<boolean>(false);
 
   return (
     <section aria-label="댓글">

@@ -1,14 +1,23 @@
 "use client";
 
 import { postComment } from "@/app/api/comments";
+import { FormSubmitHandler } from "@/types/events";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
-export default function CommentForm({ onSuccess }) {
-  const { articleId } = useParams();
-  const [comment, setComment] = useState("");
+interface CommentFormProps {
+  onSuccess: () => void;
+}
 
-  const onSubmit = async (e) => {
+type ArticleParams = {
+  articleId: string;
+};
+
+export default function CommentForm({ onSuccess }: CommentFormProps) {
+  const { articleId } = useParams<ArticleParams>();
+  const [comment, setComment] = useState<string>("");
+
+  const onSubmit: FormSubmitHandler = async (e) => {
     e.preventDefault();
     const res = await postComment(articleId, comment);
     if (!res.ok) return alert("생성 실패");
