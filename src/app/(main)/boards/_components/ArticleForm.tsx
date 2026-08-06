@@ -5,30 +5,48 @@ import {
   postArticle,
   updateArticle,
 } from "@/app/api/articles";
+import { FormSubmitHandler } from "@/types/events";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function ArticleForm({ mode, modeTitle }) {
-  const [articleData, setArticleData] = useState({ title: "", content: "" });
-  const router = useRouter();
-  const { articleId } = useParams();
+interface ArticleFormProps {
+  mode: "update" | "create";
+  modeTitle: string;
+}
 
-  const onSubmit = async (e) => {
+type ArticleData = {
+  title: string;
+  content: string;
+};
+
+type ArticleParams = {
+  articleId: string;
+};
+
+export default function ArticleForm({ mode, modeTitle }: ArticleFormProps) {
+  const [articleData, setArticleData] = useState<ArticleData>({
+    title: "",
+    content: "",
+  });
+  const router = useRouter();
+  const { articleId } = useParams<ArticleParams>();
+
+  const onSubmit: FormSubmitHandler = async (e) => {
     e.preventDefault();
     if (mode === "create") {
       const id = await postArticle(articleData);
       router.replace(`/boards/${id}`);
     }
     if (mode === "update") {
-      updateArticle(articleData, articleId);
+      updateArticle(articleData, Number(articleId));
       router.replace(`/boards/${articleId}`);
     }
   };
 
   useEffect(() => {
     if (mode === "update") {
-      async function getArticleData() {
-        const articleData = await getDetailArticleData(articleId);
+      async function getArticleData(): Promise<void> {
+        const articleData = await getDetailArticleData(Number(articleId));
         setArticleData({
           title: articleData.data.title,
           content: articleData.data.content,

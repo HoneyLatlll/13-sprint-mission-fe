@@ -1,8 +1,13 @@
 "use client";
 
+import { Article } from "@/types/article";
 import Image from "next/image";
 
-export default function ArticleItem({ article }) {
+interface ArticleItemProps {
+  article: Article;
+}
+
+export default function ArticleItem({ article }: ArticleItemProps) {
   return (
     <li className="border-cool-gray-200 flex h-[138px] flex-col gap-[16px] border-b bg-[#FCFCFC]">
       <span className="flex justify-between gap-[8px]">
