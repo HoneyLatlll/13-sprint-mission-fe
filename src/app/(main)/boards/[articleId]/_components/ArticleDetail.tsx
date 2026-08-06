@@ -6,17 +6,22 @@ import KebabMenu from "../../../../../components/KebabMenu";
 import { useParams, useRouter } from "next/navigation";
 import { deleteDetailArticle, getDetailArticleData } from "@/app/api/articles";
 import EmptyState from "../../../../../components/EmptyState";
+import { Article } from "@/types/article";
+
+type ArticleParams = {
+  articleId: string;
+};
 
 export default function ArticleDetail() {
   const router = useRouter();
-  const { articleId } = useParams();
-  const [article, setArticle] = useState({});
+  const { articleId } = useParams<ArticleParams>();
+  const [article, setArticle] = useState<Article | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function getDetailArticle(articleId) {
+    async function getDetailArticle(articleId: ArticleParams["articleId"]) {
       setIsLoading(true);
-      const articleData = await getDetailArticleData(articleId);
+      const articleData = await getDetailArticleData(Number(articleId));
       setArticle(articleData.data);
       setIsLoading(false);
     }
@@ -24,6 +29,9 @@ export default function ArticleDetail() {
   }, []);
 
   if (isLoading) return <EmptyState>상세 게시글 로딩 중...</EmptyState>;
+
+  if (!article) return <EmptyState>게시글을 찾을 수 없습니다</EmptyState>;
+
   return (
     <section
       className="mt-[32px] flex w-full flex-col gap-[16px]"
@@ -38,7 +46,7 @@ export default function ArticleDetail() {
           onSelect={(value) => {
             if (value === "update") router.push(`/boards/${articleId}/update`);
             if (value === "delete") {
-              deleteDetailArticle(articleId);
+              deleteDetailArticle(Number(articleId));
               router.replace("/boards");
             }
           }}
