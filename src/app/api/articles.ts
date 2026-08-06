@@ -8,7 +8,7 @@ import { BASE_URL } from "./config";
 export async function getArticles(
   sortValue: "latest" | "oldest" | "favoritest",
   debouncedKeyword: string,
-) {
+): Promise<MultipleArticlesResponse["data"]> {
   const res = await fetch(
     `${BASE_URL}/articles?sort=${sortValue}&keyword=${debouncedKeyword}`,
   );
@@ -18,7 +18,7 @@ export async function getArticles(
 
 export async function postArticle(
   articleData: Pick<Article, "title" | "content">,
-) {
+): Promise<SingleArticleResponse["data"]["id"]> {
   const res = await fetch(`${BASE_URL}/articles`, {
     method: "POST",
     headers: {
@@ -33,7 +33,7 @@ export async function postArticle(
 export async function updateArticle(
   articleData: Partial<Pick<Article, "content" | "title">>,
   articleId: Article["id"],
-) {
+): Promise<void> {
   await fetch(`${BASE_URL}/articles/${articleId}`, {
     method: "PATCH",
     headers: {
@@ -43,19 +43,23 @@ export async function updateArticle(
   });
 }
 
-export async function getDetailArticleData(articleId: Article["id"]) {
+export async function getDetailArticleData(
+  articleId: Article["id"],
+): Promise<SingleArticleResponse> {
   const res = await fetch(`${BASE_URL}/articles/${articleId}`);
   const articleData: SingleArticleResponse = await res.json();
   return articleData;
 }
 
-export async function deleteDetailArticle(articleId: Article["id"]) {
+export async function deleteDetailArticle(
+  articleId: Article["id"],
+): Promise<void> {
   await fetch(`${BASE_URL}/articles/${articleId}`, {
     method: "DELETE",
   });
 }
 
-export async function getBestArticles() {
+export async function getBestArticles(): Promise<MultipleArticlesResponse> {
   const res = await fetch(`${BASE_URL}/articles?sort=favoritest&limit=3`, {
     cache: "no-store",
   });
