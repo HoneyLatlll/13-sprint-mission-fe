@@ -6,13 +6,16 @@ import { useEffect, useState } from "react";
 import EmptyState from "../../../../components/EmptyState";
 import ArticleItem from "./ArticleItem";
 import { getArticles } from "@/app/api/articles";
+import { Article } from "@/types/article";
 
 export default function Articles() {
-  const [sortValue, setSortValue] = useState("latest");
-  const [keyword, setKeyword] = useState("");
-  const [debouncedKeyword, setDebouncedKeyword] = useState("");
-  const [articles, setArticles] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [sortValue, setSortValue] = useState<
+    "latest" | "oldest" | "favoritest"
+  >("latest");
+  const [keyword, setKeyword] = useState<string>("");
+  const [debouncedKeyword, setDebouncedKeyword] = useState<string>("");
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedKeyword(keyword), 500);
