@@ -8,6 +8,7 @@ import { deleteDetailArticle, getDetailArticleData } from "@/app/api/articles";
 import EmptyState from "../../../../../components/EmptyState";
 import { Article } from "@/types/article";
 
+//TODO: ArticleParams타입 여러 컴포넌트에서 자주쓰이니 이것도 분리하는게 좋을듯
 type ArticleParams = {
   articleId: string;
 };
