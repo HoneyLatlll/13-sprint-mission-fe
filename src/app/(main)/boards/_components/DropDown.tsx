@@ -3,15 +3,21 @@
 import Image from "next/image";
 import { useState } from "react";
 
+interface DropDownProps {
+  onSelect: (options: "latest" | "oldest" | "favoritest") => void;
+}
+
 const options = [
   { label: "최신순", value: "latest" },
   { label: "오래된순", value: "oldest" },
   { label: "좋아요순", value: "favoritest" },
-];
+] as const;
 
-export default function DropDown({ onSelect }) {
-  const [sortOptions, setSortOptions] = useState(options[0].label);
-  const [isOpen, setIsOpen] = useState(false);
+export default function DropDown({ onSelect }: DropDownProps) {
+  const [sortOptions, setSortOptions] = useState<
+    "최신순" | "오래된순" | "좋아요순"
+  >(options[0].label);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <button
       className="border-cool-gray-200 relative flex h-[42px] w-[130px] cursor-pointer rounded-[12px] border border-solid px-[20px] py-[12px]"
