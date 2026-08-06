@@ -3,13 +3,17 @@
 import Image from "next/image";
 import { useState } from "react";
 
+interface KebabMenuProps {
+  onSelect: (value: "update" | "delete") => void;
+}
+
 const options = [
   { label: "수정하기", value: "update" },
   { label: "삭제하기", value: "delete" },
-];
+] as const;
 
-export default function KebabMenu({ onSelect }) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function KebabMenu({ onSelect }: KebabMenuProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <button
