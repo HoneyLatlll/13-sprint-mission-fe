@@ -1,14 +1,24 @@
 "use client";
 
+import { ErrorResponse } from "@/types/api";
+import { ProductComment } from "@/types/comment";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
+type InquiryFormParams = {
+  itemId: string;
+};
+
 export default function InquiryForm() {
-  const { itemId } = useParams();
+  const { itemId } = useParams<InquiryFormParams>();
   const queryClient = useQueryClient();
-  const [comment, setComment] = useState("");
-  const { mutate, isPending } = useMutation({
+  const [comment, setComment] = useState<string>("");
+  const { mutate, isPending } = useMutation<
+    void,
+    Error,
+    { content: ProductComment["content"] }
+  >({
     mutationFn: async (data) => {
       try {
         const res = await fetch(
@@ -23,11 +33,11 @@ export default function InquiryForm() {
           },
         );
         if (!res.ok) {
-          const errorData = await res.json();
+          const errorData: ErrorResponse = await res.json();
           throw new Error(errorData.message);
         }
       } catch (err) {
-        alert(err.message);
+        if (err instanceof Error) alert(err.message);
       }
     },
     onSuccess: () => {
