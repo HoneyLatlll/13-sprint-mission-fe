@@ -19,7 +19,7 @@ export default function CommentForm({ onSuccess }: CommentFormProps) {
 
   const onSubmit: FormSubmitHandler = async (e) => {
     e.preventDefault();
-    const res = await postComment(articleId, comment);
+    const res = await postComment(Number(articleId), comment);
     if (!res.ok) return alert("생성 실패");
     onSuccess();
     setComment("");
