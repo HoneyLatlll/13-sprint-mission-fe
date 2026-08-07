@@ -4,10 +4,24 @@ import Image from "next/image";
 import KebabMenu from "../../../../../components/KebabMenu";
 import { useState } from "react";
 import { formatTimeAgo } from "@/app/utils/time";
+import { ArticleComment } from "@/types/comment";
 
-export default function CommentItem({ comment, handleDelete, handleUpdate }) {
-  const [updatedComment, setUpdatedComment] = useState("");
-  const [updateCommentId, setUpdateCommentId] = useState(null);
+interface CommentItemProps {
+  comment: ArticleComment;
+  handleDelete: (id: ArticleComment["id"]) => void;
+  handleUpdate: (
+    id: ArticleComment["id"],
+    updatedComment: ArticleComment["content"],
+  ) => void;
+}
+
+export default function CommentItem({
+  comment,
+  handleDelete,
+  handleUpdate,
+}: CommentItemProps) {
+  const [updatedComment, setUpdatedComment] = useState<string>("");
+  const [updateCommentId, setUpdateCommentId] = useState<number | null>(null);
 
   return (
     <li

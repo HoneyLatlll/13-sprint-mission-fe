@@ -1,4 +1,6 @@
-export function formatTimeAgo(createdAt) {
+import { ArticleComment } from "@/types/comment";
+
+export function formatTimeAgo(createdAt: ArticleComment["createdAt"]): string {
   const normalized = createdAt.endsWith("Z") ? createdAt : createdAt + "Z";
   const allmsTime = Date.now() - new Date(normalized).getTime();
   const allSecond = Math.floor(allmsTime / 1000);
