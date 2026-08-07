@@ -1,17 +1,29 @@
 "use client";
 
 import KebabMenu from "@/components/KebabMenu";
+import { ErrorResponse } from "@/types/api";
+import { ProductComment } from "@/types/comment";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
-export default function CommentItem({ comment }) {
-  const [isUpdate, setIsUpdate] = useState(false);
-  const [updateComment, setUpdateComment] = useState(comment.content);
+interface CommentItemProps {
+  comment: ProductComment;
+}
+
+type CommentItemParams = {
+  itemId: string;
+};
+
+export default function CommentItem({ comment }: CommentItemProps) {
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [updateComment, setUpdateComment] = useState<ProductComment["content"]>(
+    comment.content,
+  );
   const queryClient = useQueryClient();
-  const { itemId } = useParams();
-  const { mutate: deleteMutate } = useMutation({
+  const { itemId } = useParams<CommentItemParams>();
+  const { mutate: deleteMutate } = useMutation<Response>({
     mutationFn: async () =>
       await fetch(
         `https://panda-market-api.vercel.app/comments/${comment.id}`,
@@ -27,7 +39,11 @@ export default function CommentItem({ comment }) {
     },
   });
 
-  const { mutate: updateMutate } = useMutation({
+  const { mutate: updateMutate } = useMutation<
+    void,
+    Error,
+    { content: ProductComment["content"] }
+  >({
     mutationFn: async (data) => {
       try {
         const res = await fetch(
@@ -42,11 +58,11 @@ export default function CommentItem({ comment }) {
           },
         );
         if (!res.ok) {
-          const ErrorData = await res.json();
+          const ErrorData: ErrorResponse = await res.json();
           throw new Error(ErrorData.message);
         }
       } catch (err) {
-        alert(err.message);
+        if (err instanceof Error) alert(err.message);
       }
     },
     onSuccess: () => {
@@ -54,7 +70,7 @@ export default function CommentItem({ comment }) {
     },
   });
 
-  const handleSelect = (value) => {
+  const handleSelect = (value: "delete" | "update"): void => {
     if (value === "delete") deleteMutate();
     if (value === "update") setIsUpdate(true);
   };
