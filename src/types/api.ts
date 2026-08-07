@@ -7,3 +7,7 @@ export type FailResponse = {
   success: false;
   message: string;
 };
+
+export type ErrorResponse = {
+  message: string;
+};
