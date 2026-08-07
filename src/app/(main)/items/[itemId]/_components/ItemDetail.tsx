@@ -5,11 +5,21 @@ import LikeButton from "./LikeButton";
 import KebabMenu from "@/components/KebabMenu";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
+import { Product } from "@/types/product";
+
+type ItemDetailParams = {
+  itemId: string;
+};
 
 export default function ItemDetail() {
-  const { itemId } = useParams();
+  const { itemId } = useParams<ItemDetailParams>();
   const router = useRouter();
-  const { data: item, isPending } = useQuery({
+  const { data: item, isPending } = useQuery<
+    Product | undefined,
+    Error,
+    Product | undefined,
+    ["item", string]
+  >({
     queryKey: ["item", itemId],
     queryFn: async () => {
       const res = await fetch(
@@ -28,11 +38,12 @@ export default function ItemDetail() {
         }
         throw new Error("요청 실패");
       }
-      const item = await res.json();
+      const item: Product = await res.json();
       return item;
     },
   });
   if (isPending) return <p>로딩 중...</p>;
+  if (!item) return <p>데이터 불러오기 실패</p>;
 
   return (
     <div className="border-cool-gray-200 mt-5 flex gap-6 border-b pb-10">

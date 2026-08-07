@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 interface KebabMenuProps {
-  onSelect: (value: "update" | "delete") => void;
+  onSelect?: (value: "update" | "delete") => void;
 }
 
 const options = [
@@ -32,7 +32,7 @@ export default function KebabMenu({ onSelect }: KebabMenuProps) {
             <p
               key={option.value}
               className={`text-secondary-500 py-[10px] ${option.value === "update" && "border-cool-gray-200 border-b"}`}
-              onClick={() => onSelect(option.value)}
+              onClick={() => onSelect?.(option.value)}
             >
               {option.label}
             </p>
