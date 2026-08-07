@@ -5,30 +5,52 @@ import { useEffect, useState } from "react";
 import EmptyState from "../../../../../components/EmptyState";
 import CommentItem from "./CommentItem";
 import { deleteComment, getComment, updateComment } from "@/app/api/comments";
+import { ArticleComment } from "@/types/comment";
 
-export default function CommentList({ refreshTrigger, onSuccess }) {
-  const { articleId } = useParams();
-  const [comments, setComments] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+interface CommentListProps {
+  refreshTrigger: boolean;
+  onSuccess: () => void;
+}
+
+type ArticleParams = {
+  articleId: string;
+};
+
+export default function CommentList({
+  refreshTrigger,
+  onSuccess,
+}: CommentListProps) {
+  const { articleId } = useParams<ArticleParams>();
+  const [comments, setComments] = useState<ArticleComment[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function getComments() {
       setIsLoading(true);
-      const commentData = await getComment(articleId);
+      const commentData = await getComment(Number(articleId));
       setComments(commentData.data);
       setIsLoading(false);
     }
     getComments();
-  }, [refreshTrigger]);
+  }, [refreshTrigger, articleId]);
 
-  const handleDelete = async (commentId) => {
-    const res = await deleteComment(articleId, commentId);
+  const handleDelete = async (
+    commentId: ArticleComment["id"],
+  ): Promise<void> => {
+    const res = await deleteComment(Number(articleId), commentId);
     if (!res.ok) return alert("삭제 실패");
     onSuccess();
   };
 
-  const handleUpdate = async (commentId, updatedComment) => {
-    const res = await updateComment(articleId, commentId, updatedComment);
+  const handleUpdate = async (
+    commentId: ArticleComment["id"],
+    updatedComment: ArticleComment["content"],
+  ): Promise<void> => {
+    const res = await updateComment(
+      Number(articleId),
+      commentId,
+      updatedComment,
+    );
     if (!res.ok) return alert("수정 실패");
     onSuccess();
   };
