@@ -1,6 +1,10 @@
 import Image from "next/image";
 
-export default function EmptyState({ children }) {
+interface EmptyStateProps {
+  children: React.ReactNode;
+}
+
+export default function EmptyState({ children }: EmptyStateProps) {
   return (
     <div className="mt-[40px] flex flex-col items-center gap-[37px]">
       <Image src="/ic_empty_ui.svg" alt="Empty UI" width={100} height={99} />
