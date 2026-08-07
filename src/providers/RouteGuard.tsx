@@ -5,11 +5,14 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "./AuthProvider";
 
+interface RouteGuardProps {
+  children: React.ReactNode;
+}
 // 로그인된 사용자만 접근 가능한 경로
 const protectedPaths = [
   // TODO: 로그인된 사용자만 접근 가능한 경로 추가
   "/items",
-];
+] as const;
 
 // 미인증 사용자만 접근 가능한 경로
 const publicPaths = [
@@ -17,13 +20,13 @@ const publicPaths = [
   "/",
   "/login",
   "/signup",
-];
+] as const;
 
-export default function RouteGuard({ children }) {
+export default function RouteGuard({ children }: RouteGuardProps) {
   const { user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { isInitialized } = useAuth();
 
   useEffect(() => {
@@ -34,13 +37,12 @@ export default function RouteGuard({ children }) {
       const path = pathname.split("?")[0];
 
       // 정확한 경로 매칭 또는 하위 경로 매칭
-      const isProtectedRoute = protectedPaths.some(
-        (route) =>
-          path === route || (path.startsWith(route + "/") && route !== "/"),
+      const isProtectedRoute: boolean = protectedPaths.some(
+        (route) => path === route || path.startsWith(route + "/"),
       );
 
       // 정확한 경로 매칭 또는 하위 경로 매칭 (단, '/'는 정확히 일치할 때만)
-      const isPublicRoute = publicPaths.some(
+      const isPublicRoute: boolean = publicPaths.some(
         (route) =>
           path === route || (path.startsWith(route + "/") && route !== "/"),
       );
