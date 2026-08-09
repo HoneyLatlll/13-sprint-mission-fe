@@ -28,7 +28,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "src/app/(main)/items/[itemId]/_components/CommentItem.jsx"
+    "src/app/(main)/items/[itemId]/_components/CommentItem.tsx"
   ],
   "exclude": ["node_modules"]
 }

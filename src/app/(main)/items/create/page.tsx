@@ -3,20 +3,29 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BASE_URL } from "@/app/api/config";
+import { Product } from "@/types/product";
+import { FormSubmitHandler, KeyDownHandler } from "@/types/events";
+import { ErrorResponse } from "@/types/api";
+
+type ProductData = {
+  name: Product["name"];
+  description: Product["description"];
+  price: string;
+};
 
 export default function Page() {
   const router = useRouter();
-  const [productData, setProductData] = useState({
+  const [productData, setProductData] = useState<ProductData>({
     name: "",
     description: "",
     price: "",
   });
 
-  const [images, setImages] = useState([]);
-  const [tags, setTags] = useState([]);
-  const [tagInput, setTagInput] = useState("");
-  const [isPending, setIsPending] = useState(false);
-  const [previewImages, setPreviewImages] = useState([]);
+  const [images, setImages] = useState<File[]>([]);
+  const [tags, setTags] = useState<Product["tags"]>([]);
+  const [tagInput, setTagInput] = useState<string>("");
+  const [isPending, setIsPending] = useState<boolean>(false);
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
 
   const isReady =
     productData.name.trim() &&
@@ -24,7 +33,7 @@ export default function Page() {
     productData.price &&
     images.length > 0;
 
-  const onSubmit = async (e) => {
+  const onSubmit: FormSubmitHandler = async (e) => {
     e.preventDefault();
     if (!isReady || isPending) return;
 
@@ -45,22 +54,22 @@ export default function Page() {
         body: formData,
       });
       if (!res.ok) {
-        const errorData = await res.json();
+        const errorData: ErrorResponse = await res.json();
         throw new Error(errorData.message);
       }
       router.push("/items");
     } catch (err) {
-      alert(err.message);
+      if (err instanceof Error) alert(err.message);
     } finally {
       setIsPending(false);
     }
   };
 
-  const deleteImage = (index) => {
+  const deleteImage = (index: number) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const addTag = (e) => {
+  const addTag: KeyDownHandler = (e) => {
     if (e.key !== "Enter") return;
     e.preventDefault();
 
@@ -78,7 +87,7 @@ export default function Page() {
     setTagInput("");
   };
 
-  const deleteTag = (index) => {
+  const deleteTag = (index: number) => {
     setTags((prev) => prev.filter((_, i) => i !== index));
   };
 
@@ -121,6 +130,7 @@ export default function Page() {
                 accept="image/*"
                 className="hidden"
                 onChange={(e) => {
+                  if (!e.target.files) return;
                   const files = Array.from(e.target.files);
                   if (images.length + files.length > 3)
                     return alert("이미지는 최대 3개만 가능합니다.");
